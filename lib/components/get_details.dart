@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unused_local_variable
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'widgets.dart';
 
@@ -23,6 +24,33 @@ class GetDetails extends StatefulWidget {
 class _GetDetailsState extends State<GetDetails> {
   final _ctrl = List<TextEditingController>.generate(20, (index) => TextEditingController(text: null));
   get _formKey => widget.formKey;
+
+  Future<void> _restoreControllers() async {
+    final prefs = await SharedPreferences.getInstance();
+    for (int i = 0; i < _ctrl.length; i++) {
+      _ctrl[i].text = prefs.getString('get_details_controller_$i') ?? '';
+    }
+    setState(() {});
+  }
+
+  Future<void> _saveControllers() async {
+    final prefs = await SharedPreferences.getInstance();
+    for (int i = 0; i < _ctrl.length; i++) {
+      prefs.setString('get_details_controller_$i', _ctrl[i].text);
+    }
+  }
+  
+  @override
+  void initState() {
+    _restoreControllers();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _saveControllers();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext ctx) {

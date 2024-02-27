@@ -29,38 +29,38 @@ class _GetComponentState extends State<GetComponent> {
     DropdownMenuItem(value: 'Quiz', child: Text('Quiz')),
     DropdownMenuItem(value: 'Experiential Learning', child: Text('Experiential Learning')),
   ];  
-  
-  @override
-  void initState() {
-    super.initState();
-    _restoreControllers();
-  }
-
-  @override
-  void dispose() {
-    _saveControllers();
-    super.dispose();
-  }
 
   Future<void> _restoreControllers() async {
     final prefs = await SharedPreferences.getInstance();
-    debugPrint('restoring get_component_${index}_controllers...');
+    // debugPrint('restoring get_component_${index}_controllers...');
     for (int i = 0; i < ctrl.length; i++) {
       final text = prefs.getString('get_component_${index}_controller$i');
       // debugPrint(text);
       if (text != null) ctrl[i].text = text;
     }
     setState(() {});
-    debugPrint('restored get_component_${index}_controllers: ${ctrl.length}');
+    // debugPrint('restored get_component_${index}_controllers: ${ctrl.length}');
   }
 
   Future<void> _saveControllers() async {
     final prefs = await SharedPreferences.getInstance();
-    debugPrint('saving get_component_${index}_controllers: ${ctrl.length}');
+    // debugPrint('saving get_component_${index}_controllers: ${ctrl.length}');
     for (int i = 0; i < ctrl.length; i++) {
       // debugPrint('saving controller $i: ${_ctrl[i].text}');
       await prefs.setString('get_component_${index}_controller$i', ctrl[i].text);
     }
+  }
+  
+  @override
+  void initState() {
+    _restoreControllers();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _saveControllers();
+    super.dispose();
   }
 
   @override

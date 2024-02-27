@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, unused_local_variable
 
+import 'package:co_po_attainment_v2_1_flutter/screens/weightage_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:invert_colors/invert_colors.dart';
 
@@ -27,9 +28,21 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
   ThemeMode _themeMode = ThemeMode.system;
-  final pages = [StartPage()];
+  final pages = [StartPage(), WeightagePage()];
+  int _index = 0;
+
+  bool isFilled() {
+    if (_index == 0) {
+      final sp = pages[0] as StartPage;
+      return sp.isFilled();
+    } else if (_index == 1) {
+      final wp = pages[1] as WeightagePage;
+      return wp.isFilled();
+    }
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +85,16 @@ class _MyAppState extends State<MyApp> {
         body: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            pages[0],
+            AnimatedSwitcher(
+              duration: Duration(milliseconds: 300),
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return SlideTransition(
+                  position: Tween<Offset>(begin: Offset(1, 0), end: Offset.zero).animate(animation),
+                  child: child,
+                );
+              },
+              child: pages[_index],
+            ),
             SizedBox(width: 16),
             SizedBox(height: scr.height * 0.8, child: buildNextButton()),
           ],
@@ -81,16 +103,12 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  bool isFilled() {
-    return pages[0].isFilled();
-  }
-
   Widget buildNextButton() {
     return ElevatedButton(
       onPressed: () {
         if (isFilled()) {
           debugPrint('All components are filled');
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => ));
+          setState(() => _index = _index == 0 ? 1 : 0);
         } else {
           debugPrint('Some components are not filled');
           showDialog(
@@ -113,7 +131,9 @@ class _MyAppState extends State<MyApp> {
           );
         }
       },
-      child: Icon(Icons.arrow_forward_ios),
+      child: Icon(_index == 0
+        ? Icons.arrow_forward_ios
+        : Icons.arrow_back_ios),
     );
   }
 }
