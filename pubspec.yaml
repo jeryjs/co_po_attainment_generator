@@ -1,0 +1,27 @@
+name: co_po_attainment_v2_1_flutter
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  file_picker: ^6.1.1
+  flutter:
+    sdk: flutter
+  google_generative_ai: ^0.2.1
+  image: ^4.1.7
+  invert_colors: ^0.0.4
+  pdfx: ^2.6.0
+  shared_preferences: ^2.2.2
+  shimmer: ^3.0.0
+
+dev_dependencies:
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets: 
+    - assets/
+    - assets/samples/

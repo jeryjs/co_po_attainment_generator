@@ -1,0 +1,22 @@
+{
+	"compartment": "Internal Assessment",
+	"test_no": "2",
+	"course_name": "Computer Architecture",
+	"course_code": "22CSE154",
+    "semester": "3",
+	"qp_pattern": [
+		{ "Q": 1, "C": 4, "M": 2 },
+		{ "Q": 2, "C": 4, "M": 2 },
+		{ "Q": 3, "C": 4, "M": 2 },
+		{ "Q": 4, "C": 4, "M": 2 },
+		{ "Q": 5, "C": 4, "M": 2 },
+		{ "Q": 6, "C": 3, "M": 5 },
+		{ "Q": 7, "C": 3, "M": 5 },
+		{ "Q": 8, "C": 5, "M": 5 },
+		{ "Q": 9, "C": 5, "M": 5 },
+		{ "Q": 10, "C": 4, "M": 5 },
+		{ "Q": 11, "C": 4, "M": 10 },
+		{ "Q": 12, "C": 4, "M": 10 },
+		{ "Q": 13, "C": 5, "M": 10 }
+	]
+}
