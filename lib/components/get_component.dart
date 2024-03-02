@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:co_po_attainment_v2_1_flutter/components/qp_analyser.dart';
+import 'package:co_po_attainment_v2_1_flutter/models/cell_mapping.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'widgets.dart';
@@ -8,6 +9,7 @@ import 'widgets.dart';
 class GetComponent extends StatefulWidget {
   final int index;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final controllers = List<TextEditingController>.generate(5, (index) => TextEditingController(text: null));
   GetComponent({super.key, required this.index});
 
   bool isFilled() {
@@ -20,7 +22,7 @@ class GetComponent extends StatefulWidget {
 
 class _GetComponentState extends State<GetComponent> {
   get formKey => widget.formKey;
-  final ctrl = List<TextEditingController>.generate(5, (index) => TextEditingController(text: null));
+  get ctrl => widget.controllers;
   get index => widget.index;
 
   final dropdownItems = [
@@ -53,8 +55,8 @@ class _GetComponentState extends State<GetComponent> {
   
   @override
   void initState() {
-    _restoreControllers();
     super.initState();
+    _restoreControllers();
   }
 
   @override

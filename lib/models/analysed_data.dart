@@ -9,6 +9,8 @@ class AnalysedData {
   String semester;
   List<Map<String, dynamic>> qpPattern;
 
+  List<AnalysedData> analyasedDataList = [];
+
   AnalysedData._privateConstructor()
       : component = '',
         testNo = '',

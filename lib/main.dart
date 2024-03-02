@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors, unused_local_variable
 
-import 'package:co_po_attainment_v2_1_flutter/screens/weightage_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:invert_colors/invert_colors.dart';
 
 import 'screens/start_screen.dart';
+import 'screens/weightage_screen.dart';
 
 void main() {
   runApp(App());
@@ -82,22 +82,33 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
             ),
           ],
         ),
-        body: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AnimatedSwitcher(
-              duration: Duration(milliseconds: 300),
-              transitionBuilder: (Widget child, Animation<double> animation) {
-                return SlideTransition(
-                  position: Tween<Offset>(begin: Offset(1, 0), end: Offset.zero).animate(animation),
-                  child: child,
-                );
-              },
-              child: pages[_index],
-            ),
-            SizedBox(width: 16),
-            SizedBox(height: scr.height * 0.8, child: buildNextButton()),
-          ],
+        body: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: scr.width * 0.85,
+                height: scr.height * 0.8,
+                decoration: BoxDecoration(
+                  // color: clr.secondary.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.fromBorderSide(BorderSide(color: Theme.of(context).colorScheme.onPrimary.withAlpha(50), width: 2))
+                ), 
+                child: AnimatedSwitcher(
+                  duration: Duration(milliseconds: 300),
+                  transitionBuilder: (Widget child, Animation<double> animation) {
+                    return SlideTransition(
+                      position: Tween<Offset>(begin: Offset(1, 0), end: Offset.zero).animate(animation),
+                      child: child,
+                    );
+                  },
+                  child: pages[_index],
+                ),
+              ),
+              SizedBox(width: 16),
+              SizedBox(height: scr.height * 0.8, child: buildNextButton()),
+            ],
+          ),
         ),
       ),
     );

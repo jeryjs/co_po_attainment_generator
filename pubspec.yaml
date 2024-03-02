@@ -7,6 +7,7 @@ environment:
   sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
+  excel: ^4.0.2
   file_picker: ^6.1.1
   flutter:
     sdk: flutter
@@ -25,3 +26,4 @@ flutter:
   assets: 
     - assets/
     - assets/samples/
+    - assets/excel.xlsx

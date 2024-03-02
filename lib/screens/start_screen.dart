@@ -7,6 +7,7 @@ import 'package:co_po_attainment_v2_1_flutter/components/widgets.dart';
 import 'package:flutter/material.dart';
 
 import '../components/get_details.dart';
+import '../models/cell_mapping.dart';
 
 class StartPage extends StatefulWidget {
   StartPage({super.key});
@@ -62,70 +63,64 @@ class _StartPageState extends State<StartPage> {
       curve: Curves.easeOut,
     );
   }
+
+  @override
+  void dispose() {
+    CellMapping().setComponentsMapping(_components);
+    _scrollController.dispose();
+    super.dispose();
+  }
   
   @override
   Widget build(BuildContext context) {
     final scr = MediaQuery.of(context).size;
-    return Center(
-      child: SizedBox(
-        width: scr.width * 0.85,
-        height: scr.height * 0.8,
-        child: buildInformationForm(),
-      ),
-    );
+    return buildInformationForm();
   }
 
   Widget buildInformationForm() {
     final width = MediaQuery.of(context).size.width;
     final clr = Theme.of(context).colorScheme;
-    return Container(
-      decoration: BoxDecoration(
-        // color: clr.secondary.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.fromBorderSide(BorderSide(color: clr.primary.withAlpha(50), width: 2))
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(child: widget.getDetailsWidget),
-          Row(
-            children: [
-              MouseRegion(
-                onEnter: (event) => setState(() {}),
-                onExit: (event) => setState(() {}),
-                child: AnimatedContainer(
-                  duration: Duration(milliseconds: 500),
-                  width: min(_components.length * _width2, width * _width1),
-                  curve: Curves.easeOutBack,
-                  child: ListView.builder(
-                    controller: _scrollController,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: _components.length,
-                    itemBuilder: (context, index) => _components[index],
-                  ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(child: widget.getDetailsWidget),
+        Row(
+          children: [
+            MouseRegion(
+              onEnter: (event) => setState(() {}),
+              onExit: (event) => setState(() {}),
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 500),
+                width: min(_components.length * _width2, width * _width1),
+                curve: Curves.easeOutBack,
+                child: ListView.builder(
+                  controller: _scrollController,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: _components.length,
+                  itemBuilder: (context, index) => _components[index],
                 ),
               ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: _addComponent,
+                  style: fluentUiBtn(context),
+                ),
+                Padding(padding: EdgeInsets.symmetric(vertical: 8)),
+                if (_components.length > 1)
                   IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: _addComponent,
+                    icon: Icon(Icons.remove),
+                    onPressed: () => _removeComponent(_components.length - 1),
                     style: fluentUiBtn(context),
                   ),
-                  Padding(padding: EdgeInsets.symmetric(vertical: 8)),
-                  if (_components.length > 1)
-                    IconButton(
-                      icon: Icon(Icons.remove),
-                      onPressed: () => _removeComponent(_components.length - 1),
-                      style: fluentUiBtn(context),
-                    ),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
+              ],
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

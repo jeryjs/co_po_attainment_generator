@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unused_local_variable
 
+import 'package:co_po_attainment_v2_1_flutter/models/cell_mapping.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -42,13 +43,14 @@ class _GetDetailsState extends State<GetDetails> {
   
   @override
   void initState() {
-    _restoreControllers();
     super.initState();
+    _restoreControllers();
   }
 
   @override
   void dispose() {
     _saveControllers();
+    CellMapping().setDetailsMapping(_ctrl);
     super.dispose();
   }
 
