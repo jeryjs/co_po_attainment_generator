@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../models/analysed_data.dart';
 
@@ -70,6 +71,19 @@ Future<Uint8List> getUint8List(String filepath) async {
   final data = await PlatformAssetBundle().load(filepath);
   final bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
   return bytes;
+}
+
+/// Returns the Future<File> of the file at the given [path].
+/// 
+/// `Example: getFileFromAssets('assets/file.xlsx')`
+Future<File> getFileFromAssets(String path) async {
+  Directory tempDir = await getTemporaryDirectory();
+  String tempPath = tempDir.path;
+  var file = File("$tempPath/$path");
+  final data = await PlatformAssetBundle().load(path);
+  final buffer = data.buffer;
+  await file.create(recursive: true);
+  return file.writeAsBytes(buffer.asUint8List(data.offsetInBytes,data.lengthInBytes));
 }
 
 /// Returns the Excel Style column name based on the[start] column and [n] no. of cols after it.
