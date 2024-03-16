@@ -1,150 +1,196 @@
-// ignore_for_file: prefer_const_constructors, unused_local_variable
-
+import 'package:co_po_attainment_4/components/widgets.dart';
+import 'package:co_po_attainment_4/constants.dart';
+import 'package:co_po_attainment_4/screens/3_GeneratePage/generate_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:invert_colors/invert_colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'screens/start_screen.dart';
-import 'screens/weightage_screen.dart';
+import 'screens/1_DetailsPage/details_screen.dart';
+import 'screens/2_WeightagePage/weightage_screen.dart';
 
-void main() {
-  runApp(App());
+/// The main entry point of the application.
+/// It initializes the necessary dependencies and runs the app.
+void main() async {
+	WidgetsFlutterBinding.ensureInitialized();
+	SharedPreferences prefs = await SharedPreferences.getInstance();
+	ThemeMode themeMode = ThemeMode.values[prefs.getInt('themeMode') ?? 0];
+	runApp(MainApp(themeMode: themeMode));
 }
 
-class App extends StatelessWidget {
-  const App({super.key});
+/// The main application widget.
+/// It manages the state of the app and displays the appropriate screens.
+class MainApp extends StatefulWidget {
+	final ThemeMode themeMode;
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyApp(),
-    );
-  }
+	const MainApp({super.key, required this.themeMode});
+
+	@override
+	State<MainApp> createState() => _MainAppState();
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+/// The state class for the main app widget.
+class _MainAppState extends State<MainApp> {
+	late ThemeMode themeMode;
+	int index = 0;
+	final pages = [DetailsPage(), WeightagePage(), const GeneratePage()];
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
+	/// Returns the currently displayed page.
+	dynamic currentPage() {
+		return pages[index];
+	}
 
-class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
-  ThemeMode _themeMode = ThemeMode.system;
-  final pages = [StartPage(), WeightagePage()];
-  int _index = 0;
+	/// Checks if the current page and its widgets are filled.
+	bool isFilled() {
+		return currentPage().isFilled();
+	}
 
-  bool isFilled() {
-    if (_index == 0) {
-      final sp = pages[0] as StartPage;
-      return sp.isFilled();
-    } else if (_index == 1) {
-      final wp = pages[1] as WeightagePage;
-      return wp.isFilled();
-    }
-    return false;
-  }
+	/// Toggles the theme mode between light and dark.
+	/// Saves the selected theme mode to shared preferences.
+	void _toggleThemeMode() async {
+		setState(() => themeMode =
+			themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light);
+		final prefs = await SharedPreferences.getInstance();
+		prefs.setInt('themeMode', themeMode.index);
+	}
 
-  @override
-  Widget build(BuildContext context) {
-    final scr = MediaQuery.of(context).size;
+	@override
+	void initState() {
+		super.initState();
+		themeMode = widget.themeMode;
+	}
 
-    return MaterialApp(
-      title: 'CO-PO-Attainment',
-      theme: ThemeData.from(
-          colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF031C53))),
-      darkTheme: ThemeData.from(
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: Color(0xFF031C53), brightness: Brightness.dark)),
-      themeMode: _themeMode,
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          toolbarHeight: 90,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/logo.webp',height: 85,width: 85,fit: BoxFit.cover,alignment: Alignment.centerLeft),
-              _themeMode != ThemeMode.light
-                ? InvertColors(child: Image.asset('assets/logo.webp',height: 85,width: 380,fit: BoxFit.cover,alignment: Alignment.centerRight))
-                : Image.asset('assets/logo.webp',height: 85,width: 380,fit: BoxFit.cover,alignment: Alignment.centerRight),
-            ],
-          ),
-          actions: [
-            Switch(
-              value: _themeMode != ThemeMode.light,
-              onChanged: (value) => setState(
-                  () => _themeMode = value ? ThemeMode.dark : ThemeMode.light),
-              thumbIcon: MaterialStateProperty.all<Icon?>(
-                Icon(_themeMode != ThemeMode.light
-                    ? Icons.dark_mode
-                    : Icons.light_mode),
-              ),
-            ),
-          ],
-        ),
-        body: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: scr.width * 0.85,
-                height: scr.height * 0.8,
-                decoration: BoxDecoration(
-                  // color: clr.secondary.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.fromBorderSide(BorderSide(color: Theme.of(context).colorScheme.onPrimary.withAlpha(50), width: 2))
-                ), 
-                child: AnimatedSwitcher(
-                  duration: Duration(milliseconds: 300),
-                  transitionBuilder: (Widget child, Animation<double> animation) {
-                    return SlideTransition(
-                      position: Tween<Offset>(begin: Offset(1, 0), end: Offset.zero).animate(animation),
-                      child: child,
-                    );
-                  },
-                  child: pages[_index],
-                ),
-              ),
-              SizedBox(width: 16),
-              SizedBox(height: scr.height * 0.8, child: buildNextButton()),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+	/// Builds the main user interface of the app, which includes a MaterialApp with
+	/// light and dark themes. The Appbar is a fixed compponent, static throughout the app.
+	/// The body's container acts as a navigation between the app's pages, while the NextButton
+	/// button is for navigating to the next page.
+	@override
+	Widget build(BuildContext context) {
+		final scr = MediaQuery.of(context).size;
+		final clr = Theme.of(context).colorScheme;
 
-  Widget buildNextButton() {
-    return ElevatedButton(
-      onPressed: () {
-        if (isFilled()) {
-          debugPrint('All components are filled');
-          setState(() => _index = _index == 0 ? 1 : 0);
-        } else {
-          debugPrint('Some components are not filled');
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text('Missing Required Fields'),
-                content: Text('Please fill all the fields.'),
-                actions: [
-                  TextButton(
-                    autofocus: true,
-                    child: Text('OK'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              );
-            },
-          );
-        }
-      },
-      child: Icon(_index == 0
-        ? Icons.arrow_forward_ios
-        : Icons.arrow_back_ios),
-    );
-  }
+		return MaterialApp(
+			title: 'CO-PO-Attainment',
+			themeMode: themeMode,
+			theme: ThemeData.from(
+				colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF031C53))),
+			darkTheme: ThemeData.from(
+				colorScheme: ColorScheme.fromSeed(
+					seedColor: const Color(0xFF031C53), brightness: Brightness.dark)),
+			home: Scaffold(
+				appBar: buildAppBar(),
+				body: Center(
+					child: Row(
+						mainAxisAlignment: MainAxisAlignment.center,
+						children: [
+							Container(
+								width: scr.width * 0.85,
+								height: scr.height * 0.8,
+								decoration: BoxDecoration(
+									borderRadius: BorderRadius.circular(12),
+									border: Border.fromBorderSide(BorderSide(
+										color: clr.onPrimary.withAlpha(50), width: 2))),
+								child: AnimatedSwitcher(
+									duration: const Duration(milliseconds: 500),
+									transitionBuilder:
+										(Widget child, Animation<double> animation) {
+										return FadeTransition(
+											opacity: animation,
+											child: child,
+										);
+									},
+									child: currentPage(),
+								),
+							),
+							const SizedBox(width: 16),
+							SizedBox(height: scr.height * 0.8, child: buildNavButtons(context)),
+						],
+					),
+				),
+			),
+		);
+	}
+
+	/// Builds the app bar with the logo and theme mode switch.
+	PreferredSizeWidget buildAppBar() {
+		final logo = Image.asset('assets/logo.png',height: 85,fit: BoxFit.cover,alignment: Alignment.centerLeft);
+		final banner = Image.asset('assets/banner.png',height: 85,fit: BoxFit.cover,alignment: Alignment.centerRight);
+		return AppBar(
+			centerTitle: true,
+			toolbarHeight: 90,
+			title: Row(
+				mainAxisAlignment: MainAxisAlignment.center,
+				children: [
+					logo,
+					themeMode != ThemeMode.light
+						? InvertColors(child: banner)
+						: banner,
+				],
+			),
+			actions: [
+				IconButton(
+					onPressed: () {
+						showAboutDialog(context: context, applicationIcon: logo, applicationName: Constants.appName, applicationVersion: "v1.0");
+					},
+					icon: const Icon(Icons.info),
+				),
+				Switch(
+					value: themeMode != ThemeMode.light,
+					onChanged: (value) => _toggleThemeMode(),
+					thumbIcon: MaterialStateProperty.all<Icon?>(
+						Icon(themeMode != ThemeMode.light
+							? Icons.dark_mode
+							: Icons.light_mode),
+					),
+				),
+			],
+		);
+	}
+
+	/// Builds the next button that navigates between pages.
+	Widget buildNavButtons(context) {
+		return Card(
+			child: Column(
+				mainAxisAlignment: MainAxisAlignment.center,
+				children: [
+					Expanded(
+						flex: 3,
+						child: ElevatedButton(
+							style: fluentUiBtn(context),
+							onPressed: index < pages.length - 1
+								? () {
+									if (isFilled()) {
+										if (index == 2) {
+											setState(() => index = 0);
+										} else {
+											setState(() => ++index);
+										}
+									}
+									}
+								: null,
+							child: const Icon(Icons.arrow_forward_ios),
+						),
+					),
+					const SizedBox(width: 16),
+					Expanded(
+						flex: 1,
+						child: ElevatedButton(
+							style: fluentUiBtn(context),
+							onPressed: index > 0
+								? () {
+									if (true) {
+										if (index == 0) {
+											setState(() => index = 2);
+										} else {
+											setState(() => --index);
+										}
+									}
+									}
+								: null,
+							child: const Icon(Icons.arrow_back_ios),
+						),
+					),
+				],
+			),
+		);
+	}
 }

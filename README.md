@@ -1,3 +1,3 @@
-# co_po_attainment_v2_1_flutter
+# CO-PO Generator
 
 A new Flutter project.

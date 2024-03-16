@@ -1,4 +1,4 @@
-name: co_po_attainment_v2_1_flutter
+name: co_po_attainment_4
 description: "A new Flutter project."
 publish_to: 'none'
 version: 0.1.0
@@ -7,23 +7,27 @@ environment:
   sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
-  excel: ^4.0.2
-  file_picker: ^6.1.1
+  file_picker: ^6.2.0
   flutter:
     sdk: flutter
-  google_generative_ai: ^0.2.1
+  google_generative_ai: ^0.2.2
   image: ^4.1.7
   invert_colors: ^0.0.4
+  open_file: ^3.3.2
+  path: ^1.9.0
+  path_provider: ^2.1.2
   pdfx: ^2.6.0
   shared_preferences: ^2.2.2
   shimmer: ^3.0.0
 
 dev_dependencies:
+  flutter_test:
+    sdk: flutter
   flutter_lints: ^3.0.0
 
 flutter:
   uses-material-design: true
   assets: 
     - assets/
+    - assets/api/
     - assets/samples/
-    - assets/excel.xlsx

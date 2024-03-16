@@ -1,81 +1,18 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-Widget textForm(title, hint, icon, {isDigits = false, required TextEditingController controller, required BuildContext context}) {
-  
-  // select all text on focus
-  final focusNode = FocusNode();
-  focusNode.addListener(() {
-    if (focusNode.hasFocus) controller.selection = TextSelection(baseOffset: 0, extentOffset: controller.text.length);
-  });
 
-  return Padding(
-    padding: const EdgeInsets.all(4.0),
-    child: KeyboardListener(
-      focusNode: FocusNode(skipTraversal: true),
-      onKeyEvent: (event) {
-        if (isDigits) {
-          if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
-            int currentValue = controller.text == '' ? 0 : int.parse(controller.text);
-            controller.text = (++currentValue).toString();
-          } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
-            int currentValue = controller.text == '' ? 0 : int.parse(controller.text);
-            controller.text = currentValue > 0 ? (--currentValue).toString() : '0';
-          }
-        }
-      },
-      child: TextFormField(
-        controller: controller,
-        focusNode: focusNode,
-        validator: (v) => v == null || v.isEmpty ? 'Required to fill this field' : null,
-        maxLines: 1,
-        keyboardType: isDigits ? TextInputType.number : null,
-        inputFormatters: isDigits
-            ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
-            : null,
-        decoration: InputDecoration(
-          labelText: title,
-          hintText: hint,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(100),
-          ),
-          prefixIcon: Icon(icon),
-          suffixIcon: isDigits
-            ? Padding(padding: const EdgeInsets.only(right: 8.0),
-              child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  InkWell(
-                    focusNode: FocusNode(skipTraversal: true),
-                    child: Icon(Icons.add, size: 20 ),
-                    onTap: () {
-                      int currentValue =  controller.text == '' ? 0 : int.parse(controller.text);
-                      controller.text = (++currentValue).toString();
-                    },
-                  ),
-                  InkWell(
-                    focusNode: FocusNode(skipTraversal: true),
-                    child: Icon(Icons.remove, size: 20  ),
-                    onTap: () {
-                      int currentValue = controller.text == '' ? 0 : int.parse(controller.text);
-                      controller.text = currentValue > 0 ? (--currentValue).toString(): '0';
-                    },
-                  ),
-                ]),
-              )
-            : null,
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
-          ),
-        ),
-        style: TextStyle(color: Theme.of(context).colorScheme.primary, fontSize: 16),
-      ),
-    ),
-  );
-}
-
-InputDecoration textFormDecoration(title, hint, icon, {required context}) {
+/// Returns the input decoration for a text form field.
+///
+/// This function creates and returns an [InputDecoration] object with the specified title, hint,
+/// icon, and context.
+InputDecoration textFormDecoration(
+  String title,
+  String hint,
+  IconData icon,
+  BuildContext context,
+) {
   return InputDecoration(
     labelText: title,
     hintText: hint,
@@ -86,18 +23,57 @@ InputDecoration textFormDecoration(title, hint, icon, {required context}) {
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(16),
       borderSide: BorderSide(
-          color: Theme.of(context).colorScheme.primaryContainer, width: 4),
+        color: Theme.of(context).colorScheme.primaryContainer,
+        width: 4,
+      ),
     ),
   );
 }
 
-ButtonStyle fluentUiBtn(context) {
+/// Returns the button style used in Fluent UI.
+///
+/// This function returns a [ButtonStyle] object with the background color and shape
+/// properties set based on the provided [context].
+ButtonStyle fluentUiBtn(BuildContext context) {
   return ButtonStyle(
-    backgroundColor: MaterialStateProperty.resolveWith((states) => Theme.of(context).focusColor),
+    backgroundColor: MaterialStateProperty.resolveWith(
+      (states) => Theme.of(context).focusColor,
+    ),
     shape: MaterialStateProperty.resolveWith(
       (states) => RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
-    )
+    ),
+  );
+}
+
+/// A text style for headings.
+/// 
+/// This text style is used for headings and has a font size of 24 and a bold font weight.
+TextStyle heading = TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
+
+/// A widget that disables user interaction with its child widget.
+///
+/// This widget wraps the provided [child] widget and makes it unresponsive to user input
+/// when the [disabled] flag is set to `true`.
+Widget disable({
+  Key? key,
+  bool disabled = true,
+  Widget? child,
+}) {
+  return IgnorePointer(
+    ignoring: disabled,
+    child: disabled
+      ? Container(
+          foregroundDecoration: BoxDecoration(
+            color: Colors.black,
+            backgroundBlendMode: BlendMode.saturation,
+          ),
+          child: Opacity(
+            opacity: 0.7,
+            child: child,
+          ),
+        )
+      : child,
   );
 }

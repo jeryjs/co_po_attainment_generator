@@ -9,36 +9,33 @@ class AnalysedData {
   String semester;
   List<Map<String, dynamic>> qpPattern;
 
-  List<AnalysedData> analyasedDataList = [];
+  Object? error;
 
-  AnalysedData._privateConstructor()
-      : component = '',
-        testNo = '',
-        courseName = '',
-        courseCode = '',
-        semester = '',
-        qpPattern = [];
-
-  /// Singleton instance
-  static final AnalysedData _instance = AnalysedData._privateConstructor();
-
-  /// Getter for the singleton instance
-  static AnalysedData get instance => _instance;
+  /// Constructs an [AnalysedData] object.
+  AnalysedData({
+    this.component = '',
+    this.testNo = '',
+    this.courseName = '',
+    this.courseCode = '',
+    this.semester = '',
+    this.qpPattern = const [],
+  });
 
   /// Creates an [AnalysedData] object from a JSON map.
-  factory AnalysedData.fromJson(Map<String, dynamic> json) {
-    _instance.component = json['compartment'];
-    _instance.testNo = json['test_no'];
-    _instance.courseName = json['course_name'];
-    _instance.courseCode = json['course_code'];
-    _instance.semester = json['semester'];
-    _instance.qpPattern = List<Map<String, dynamic>>.from(json['qp_pattern']);
-    return _instance;
-  }
+    factory AnalysedData.fromJson(Map<String, dynamic> json) {
+      return AnalysedData(
+        component: json['compartment'],
+        testNo: json['test_no'],
+        courseName: json['course_name'],
+        courseCode: json['course_code'],
+        semester: json['semester'],
+        qpPattern: List<Map<String, dynamic>>.from(json['qp_pattern']),
+      );
+    }
 
   /// Creates an empty [AnalysedData] object.
   factory AnalysedData.empty() {
-    return AnalysedData._privateConstructor();
+    return AnalysedData();
   }
 
   /// Checks if the [AnalysedData] object is empty.
@@ -49,6 +46,16 @@ class AnalysedData {
         courseCode.isEmpty &&
         semester.isEmpty &&
         qpPattern.isEmpty;
+  }
+
+  /// Checks if the [AnalysedData] object is not empty.
+  bool get isNotEmpty {
+    return component.isNotEmpty ||
+        testNo.isNotEmpty ||
+        courseName.isNotEmpty ||
+        courseCode.isNotEmpty ||
+        semester.isNotEmpty ||
+        qpPattern.isNotEmpty;
   }
 
   /// Converts the [AnalysedData] object to a JSON string.
@@ -66,8 +73,13 @@ class AnalysedData {
 
   @override
   String toString() {
-    String qpPatternString = qpPattern.map((pattern) => '\n\t\t\t\t{Q: ${pattern['Q']}, C: ${pattern['C']}, M: ${pattern['M']}}').join(',');
+    String qpPatternString = qpPattern
+        .map((pattern) =>
+            '\n\t\t\t\t{Q: ${pattern['Q']}, C: ${pattern['C']}, M: ${pattern['M']}}')
+        .join(',');
 
-    return '{\n\tcompartment: $component,\n\ttest_no: $testNo,\n\tcourse_name: $courseName,\n\tcourse_code: $courseCode,\n\tsemester: $semester,\n\tqp_pattern: [$qpPatternString\n\t]\n}';
+    return error != null
+        ? error.toString()
+        : '{\n\tcompartment: $component,\n\ttest_no: $testNo,\n\tcourse_name: $courseName,\n\tcourse_code: $courseCode,\n\tsemester: $semester,\n\tqp_pattern: [$qpPatternString\n\t]\n}';
   }
 }
