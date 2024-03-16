@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "CO-PO Generator"
-#define MyAppVersion "0.2.0"
+#define MyAppVersion "v0.3.0-alpha"
 #define MyAppPublisher "Jery"
 #define MyAppExeName "co_po_generator.exe"
 
