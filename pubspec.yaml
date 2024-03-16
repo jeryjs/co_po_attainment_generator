@@ -24,6 +24,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  msix: ^3.16.7
 
 flutter:
   uses-material-design: true
@@ -33,3 +34,16 @@ flutter:
     - assets/samples/
     - assets/samples/IA/1/
     - assets/samples/IA/2/
+
+# msix packaging configuration
+# run with the command [dart run msix:create] or [dart run msix:publish]
+msix_config:
+  display_name: CO-PO Generator
+  publisher_display_name: Jery
+  output_path: setup\
+  build_windows: false
+  app_installer:
+    publish_folder_path: setup\
+  identity_name: com.jery.co-po-generator
+  logo_path: windows\runner\resources\app_icon.ico
+  capabilities: internetClient
