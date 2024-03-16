@@ -45,7 +45,8 @@ class AnalysedData {
         courseName.isEmpty &&
         courseCode.isEmpty &&
         semester.isEmpty &&
-        qpPattern.isEmpty;
+        qpPattern.isEmpty &&
+        error == null;
   }
 
   /// Checks if the [AnalysedData] object is not empty.
