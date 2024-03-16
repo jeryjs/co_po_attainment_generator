@@ -1,7 +1,7 @@
-name: co_po_attainment_4
-description: "A new Flutter project."
+name: co_po_generator
+description: "A CO-PO Attainment Generator for FET, Jain University"
 publish_to: 'none'
-version: 0.1.0
+version: 0.2.0
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
