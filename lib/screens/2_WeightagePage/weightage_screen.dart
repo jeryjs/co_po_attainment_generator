@@ -241,9 +241,9 @@ class _WeightagePageState extends State<WeightagePage> {
                     width: 0.5,
                     color: Theme.of(context).colorScheme.primary,
                     borderRadius: BorderRadius.circular(24)),
-                columnWidths: {
-                  0: const FractionColumnWidth(0.7),
-                  1: const FractionColumnWidth(0.3),
+                columnWidths: const {
+                  0: FractionColumnWidth(0.7),
+                  1: FractionColumnWidth(0.3),
                 },
                 defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
                 children: [
