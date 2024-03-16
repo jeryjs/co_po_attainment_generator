@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter/material.dart';
 
 import '../models/cell_mapping.dart';
 import '../utils/utils.dart';
@@ -15,13 +15,13 @@ class ExcelWriter {
     final appDir = await getApplicationSupportDirectory();
 
     // Load the Excel files
-    final inputFile = File('assets/input.xlsx');
+    final inputFile = await getFileFromAssets('assets/input.xlsx');
     final outputName = '${cm.courseCode}/${getFormattedDate(DateTime.now())}';
     final outputFile = File('${appDir.path}/output/$outputName.xlsx');
     outputFile.create(exclusive: true, recursive: true);
 
     // load the excel-writer.exe
-    final excelWriter = File('assets/excel-writer.exe');
+    final excelWriter = await getFileFromAssets('assets/excel-writer.exe');
 
     // Define the operations to be performed on the excel file
     List<Map<String, dynamic>> operations = cm.generateOperations();
@@ -31,7 +31,7 @@ class ExcelWriter {
 
     // Start the excelWriter as a separate process
     final process = await Process.start(excelWriter.absolute.path,
-        ["v1", operationsJson, inputFile.absolute.path, outputFile.path], runInShell: true);
+        ["v1", operationsJson, inputFile.path, outputFile.path], runInShell: true);
     
     stdout.addStream(process.stdout);
     // stderr.addStream(process.stderr);
