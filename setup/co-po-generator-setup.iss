@@ -17,13 +17,13 @@ AppPublisher={#MyAppPublisher}
 DefaultDirName={autopf}\CO-PO_Generator
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
-LicenseFile=Z:\Documents\All-Projects\Vishal-Sir\CO-PO-Attainment\app\co_po_generator\LICENSE.txt
+LicenseFile=..\LICENSE.txt
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
-OutputDir=Z:\Documents\All-Projects\Vishal-Sir\CO-PO-Attainment\app\co_po_generator\setup
+OutputDir=..\setup
 OutputBaseFilename=co-po-generator-setup
-SetupIconFile=Z:\Documents\All-Projects\Vishal-Sir\CO-PO-Attainment\app\co_po_generator\windows\runner\resources\app_icon.ico
+SetupIconFile=..\windows\runner\resources\app_icon.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -35,11 +35,11 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "Z:\Documents\All-Projects\Vishal-Sir\CO-PO-Attainment\app\co_po_generator\build\windows\x64\runner\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "Z:\Documents\All-Projects\Vishal-Sir\CO-PO-Attainment\app\co_po_generator\build\windows\x64\runner\Release\flutter_windows.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "Z:\Documents\All-Projects\Vishal-Sir\CO-PO-Attainment\app\co_po_generator\build\windows\x64\runner\Release\pdfium.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "Z:\Documents\All-Projects\Vishal-Sir\CO-PO-Attainment\app\co_po_generator\build\windows\x64\runner\Release\pdfx_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "Z:\Documents\All-Projects\Vishal-Sir\CO-PO-Attainment\app\co_po_generator\build\windows\x64\runner\Release\data\*"; DestDir: "{app}\data"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\build\windows\x64\runner\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\build\windows\x64\runner\Release\flutter_windows.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\build\windows\x64\runner\Release\pdfium.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\build\windows\x64\runner\Release\pdfx_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\build\windows\x64\runner\Release\data\*"; DestDir: "{app}\data"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
