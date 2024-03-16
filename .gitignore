@@ -45,3 +45,4 @@ app.*.map.json
 # secrets
 assets/api
 assets/input.*
+*.code-workspace

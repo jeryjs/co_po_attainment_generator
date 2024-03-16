@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "C:/Users/Jery/AppData/Roaming/com.jery/co_po_generator"
 		}
 	],
 	"settings": {}
