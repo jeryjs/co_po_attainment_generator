@@ -27,10 +27,10 @@ Future<AnalysedData> analyseQPWithGemini(List<Uint8List> images) async {
 
     // Example images for training the AI model.
     final exampleImages = [
-      await File("assets/samples/IA/1/1.jpg").readAsBytes(),
-      await File("assets/samples/IA/1/2.jpg").readAsBytes(),
-      await File("assets/samples/IA/1/3.jpg").readAsBytes(),
-      await File("assets/samples/IA/2/1.jpg").readAsBytes(),
+      await getUint8List("assets/samples/IA/1/1.jpg"),
+      await getUint8List("assets/samples/IA/1/2.jpg"),
+      await getUint8List("assets/samples/IA/1/3.jpg"),
+      await getUint8List("assets/samples/IA/2/1.jpg"),
     ];
 
     // Prompt for the analysis
@@ -61,6 +61,15 @@ Future<AnalysedData> analyseQPWithGemini(List<Uint8List> images) async {
     debugPrint(e.toString());
   }
   return result;
+}
+
+/// Returns the Future<Uint8List> of the file at the given [filepath] path.
+/// 
+/// `Example: getUint8List('assets/file.jpg')`
+Future<Uint8List> getUint8List(String filepath) async {
+  final data = await PlatformAssetBundle().load(filepath);
+  final bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+  return bytes;
 }
 
 /// Returns the Excel Style column name based on the[start] column and [n] no. of cols after it.
