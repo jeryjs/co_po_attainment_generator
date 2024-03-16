@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../components/m_text_form.dart';
-import '../../components/widgets.dart';
-import '../../models/cell_mapping.dart';
+import '/components/m_text_form.dart';
+import '/components/widgets.dart';
+import '/models/cell_mapping.dart';
 
 /// A widget that allows the user to input details such as name, designation, course information, etc.
 class GetDetails extends StatefulWidget {

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'get_details.dart';
 import 'get_component.dart';
-import '../../components/widgets.dart';
-import '../../models/cell_mapping.dart';
+import '/components/widgets.dart';
+import '/models/cell_mapping.dart';
 
 /// Represents the start page of the application.
 class DetailsPage extends StatefulWidget {

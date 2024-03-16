@@ -1,10 +1,10 @@
-import 'package:co_po_attainment_4/components/widgets.dart';
-import 'package:co_po_attainment_4/constants.dart';
-import 'package:co_po_attainment_4/screens/3_GeneratePage/generate_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:invert_colors/invert_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'components/widgets.dart';
+import 'constants.dart';
+import 'screens/3_GeneratePage/generate_screen.dart';
 import 'screens/1_DetailsPage/details_screen.dart';
 import 'screens/2_WeightagePage/weightage_screen.dart';
 

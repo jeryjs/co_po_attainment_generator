@@ -1,10 +1,10 @@
-import 'package:co_po_attainment_4/screens/2_WeightagePage/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../components/m_text_form.dart';
-import '../../components/widgets.dart';
-import '../../models/cell_mapping.dart';
+import '/screens/2_WeightagePage/widgets.dart';
+import '/components/m_text_form.dart';
+import '/components/widgets.dart';
+import '/models/cell_mapping.dart';
 
 /// [WeightagePage] is a stateful widget that represents a page where the user can input weightages for different parameters.
 /// It contains three forms, each with its own key for validation.

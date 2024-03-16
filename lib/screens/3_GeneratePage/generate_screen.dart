@@ -1,9 +1,9 @@
-import 'package:co_po_attainment_4/components/widgets.dart';
-import 'package:co_po_attainment_4/models/cell_mapping.dart';
-import 'package:co_po_attainment_4/screens/3_GeneratePage/generator_history.dart';
 import 'package:flutter/material.dart';
 
-import '../../utils/excel_writer.dart';
+import '/components/widgets.dart';
+import '/models/cell_mapping.dart';
+import '/screens/3_GeneratePage/generator_history.dart';
+import '/utils/excel_writer.dart';
 
 /// `GeneratePage` is a StatefulWidget that represents the page where the Excel file generation takes place.
 /// It contains two main sections: a history view and a generate view.

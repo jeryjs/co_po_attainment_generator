@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 
-import '../screens/1_DetailsPage/get_component.dart';
-import '../utils/utils.dart';
+import '/screens/1_DetailsPage/get_component.dart';
+import '/utils/utils.dart';
 
 class CellMapping {
 	final cellMappings = {};

@@ -10,8 +10,8 @@ import 'package:pdfx/pdfx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../models/analysed_data.dart';
-import '../../utils/utils.dart';
+import '/models/analysed_data.dart';
+import '/utils/utils.dart';
 
 /// A widget that analyses the selected QP using google's gemini AI.
 // ignore: must_be_immutable

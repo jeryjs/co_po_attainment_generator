@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../components/m_text_form.dart';
-import '../../components/widgets.dart';
 
+import '/components/m_text_form.dart';
+import '/components/widgets.dart';
 import 'qp_analyser.dart';
 
 /// A Widget that represents a component in the details page.
