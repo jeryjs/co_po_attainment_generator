@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "co_po_attainment_5" "\0"
+            VALUE "CompanyName", "com.jery" "\0"
+            VALUE "FileDescription", "co_po_generator" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "co_po_attainment_5" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "co_po_attainment_5.exe" "\0"
-            VALUE "ProductName", "co_po_attainment_5" "\0"
+            VALUE "InternalName", "co_po_generator" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 com.jery. All rights reserved." "\0"
+            VALUE "OriginalFilename", "co_po_generator.exe" "\0"
+            VALUE "ProductName", "co_po_generator" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
