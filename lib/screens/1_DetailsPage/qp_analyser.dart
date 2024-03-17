@@ -6,7 +6,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:image/image.dart' as img;
-import 'package:pdfx/pdfx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -58,33 +57,10 @@ class _QpAnalyserState extends State<QpAnalyser> {
   Future<List<Uint8List>> processFiles(List<PlatformFile> files) async {
     List<Uint8List> processedImages = [];
     for (var file in files) {
-      if (file.extension == 'pdf') {
-        List<Uint8List> pdfImages = await convertPdfToImages(file);
-        processedImages.addAll(pdfImages);
-      } else {
-        Uint8List? compressedImage = resizeImage(file);
-        processedImages.add(compressedImage);
-      }
+      Uint8List? compressedImage = resizeImage(file);
+      processedImages.add(compressedImage);
     }
     return processedImages;
-  }
-
-  /// Converts a PDF file to a list of images.
-  Future<List<Uint8List>> convertPdfToImages(PlatformFile pdfFile) async {
-    final pdfDocument = await PdfDocument.openFile(pdfFile.path!);
-    final pageCount = pdfDocument.pagesCount;
-    debugPrint('pages: $pageCount');
-
-    final List<Uint8List> images = [];
-    for (int i = 1; i <= pageCount; i++) {
-      final page = await pdfDocument.getPage(i);
-      final pageImage = await page.render(width: 800, height: 1130);
-      images.add(pageImage!.bytes);
-    }
-
-    await pdfDocument.close();
-
-    return images;
   }
 
   /// Resizes an image to a specific width while maintaining the aspect ratio.
