@@ -61,58 +61,67 @@ class _GeneratePageState extends State<GeneratePage> {
         ElevatedButton(
           style: fluentUiBtn(context),
           onPressed: () async {
-            String data = "";
-            showGeneralDialog(
-              context: context,
-              pageBuilder: (context, anim1, anim2) {
-                return AlertDialog(
-                  title: const Row(
-                    children: [
-                      Text("Generating Excel..."),
-                      CircularProgressIndicator.adaptive(),
-                    ],
-                  ),
-                  content: StreamBuilder<String>(
-                    stream: ExcelWriter().writeToExcel(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        data += snapshot.data!;
-                      }
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        Navigator.of(context).pop();
-                      }
-                      return SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: SizedBox(
-                            width: 300,
-                            child: Text(
-                              data,
-                              softWrap: false,
-                              overflow: TextOverflow.fade,
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  actions: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        return;
-                      },
-                      child: const Text("Cancel"),
-                    ),
-                  ],
-                );
-              },
-            );
+            await showGeneratingDialog(ExcelWriter().writeToExcel());
           },
           child: const Text('Test write to excel'),
         ),
       ]),
+    );
+  }
+
+  /// Shows a progress dialog while the excel file is being generated.
+  ///
+  /// It accepts a [stream] as parameter.
+  /// The [stream] data is used to display the progress of the file generation.
+  Future<void> showGeneratingDialog(Stream<String> stream) {
+    String data = "";
+    return showGeneralDialog(
+      context: context,
+      pageBuilder: (context, anim1, anim2) {
+        return AlertDialog(
+          title: const Row(
+            children: [
+              Text("Generating Excel..."),
+              CircularProgressIndicator.adaptive(),
+            ],
+          ),
+          content: StreamBuilder<String>(
+            stream: stream,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                data += snapshot.data!;
+              }
+              if (snapshot.connectionState == ConnectionState.done) {
+                Navigator.of(context).pop();
+              }
+              // Wrap the Text widget in 2 scrollViews to enable multi-directional scrolling.
+              return SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: SizedBox(
+                    width: 300,
+                    child: Text(
+                      data,
+                      softWrap: false,
+                      overflow: TextOverflow.fade,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                return;
+              },
+              child: const Text("Cancel"),
+            ),
+          ],
+        );
+      },
     );
   }
 }

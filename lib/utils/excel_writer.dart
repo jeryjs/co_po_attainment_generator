@@ -11,6 +11,12 @@ import '../utils/utils.dart';
 class ExcelWriter {
   final CellMapping cm = CellMapping("ExcelWriter");
 
+  /// A function that writes data from [CellMapping] to the output excel file.
+  /// 
+  /// - It uses `github.com/jeryjs/excel-writer` for writing data to the excel file.
+  /// 
+  /// It returns a stream that can be used to display the progress of the operation.
+  /// Once successfully written to excel, it launches the file using the default app.
   Stream<String> writeToExcel() async* {
     final appDir = await getApplicationSupportDirectory();
 
@@ -44,6 +50,7 @@ class ExcelWriter {
 
     debugPrint("Finished writing to file: ${outputFile.lengthSync()}");
 
+    // Launch the output excel with default app.
     await OpenFile.open(outputFile.path);
   }
 }
