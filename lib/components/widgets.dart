@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 
 
@@ -50,7 +48,7 @@ ButtonStyle fluentUiBtn(BuildContext context) {
 /// A text style for headings.
 /// 
 /// This text style is used for headings and has a font size of 24 and a bold font weight.
-TextStyle heading = TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
+TextStyle heading = const TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
 
 /// A widget that disables user interaction with its child widget.
 ///
@@ -65,7 +63,7 @@ Widget disable({
     ignoring: disabled,
     child: disabled
       ? Container(
-          foregroundDecoration: BoxDecoration(
+          foregroundDecoration: const BoxDecoration(
             color: Colors.black,
             backgroundBlendMode: BlendMode.saturation,
           ),

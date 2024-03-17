@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -88,7 +86,7 @@ class MTextForm extends StatelessWidget {
             enabled: enabled,
             maxLines: 1,
             keyboardType: isDigits
-                ? TextInputType.numberWithOptions(decimal: false, signed: true)
+                ? const TextInputType.numberWithOptions(decimal: false, signed: true)
                 : null,
             inputFormatters: isDigits
                 ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
@@ -108,7 +106,7 @@ class MTextForm extends StatelessWidget {
                           // increment and decrement the value for numeric input with arrow keys
                           InkWell(
                             focusNode: FocusNode(skipTraversal: true),
-                            child: Icon(Icons.arrow_drop_up, size: 24),
+                            child: const Icon(Icons.arrow_drop_up, size: 24),
                             onTap: () {
                               final txt = controller.text;
                               int curVal = txt == '' ? 0 : int.parse(txt);
@@ -117,7 +115,7 @@ class MTextForm extends StatelessWidget {
                           ),
                           InkWell(
                             focusNode: FocusNode(skipTraversal: true),
-                            child: Icon(Icons.arrow_drop_down, size: 24),
+                            child: const Icon(Icons.arrow_drop_down, size: 24),
                             onTap: () {
                               final txt = controller.text;
                               int curVal = txt == '' ? 0 : int.parse(txt);
