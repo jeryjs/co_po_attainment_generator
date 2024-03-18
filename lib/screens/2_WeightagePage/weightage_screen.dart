@@ -182,11 +182,11 @@ class _WeightagePageState extends State<WeightagePage> {
               const Padding(padding: EdgeInsets.all(4)),
               Row(children: [
                 Expanded(
-                    child: MTextForm("Direct", "Direct", Icons.track_changes,
+                    child: MTextForm("Direct", "Direct", Icons.panorama_horizontal,
                         isDigits: true, controller: ctrl[idx++])),
                 Expanded(
                     child: MTextForm(
-                        "Indirect", "Indirect", Icons.track_changes,
+                        "Indirect", "Indirect", Icons.panorama_horizontal_select,
                         isDigits: true, controller: ctrl[idx++])),
               ]),
               Row(children: [
@@ -196,7 +196,7 @@ class _WeightagePageState extends State<WeightagePage> {
                         isDigits: true, controller: ctrl[idx++])),
                 Expanded(
                     child: MTextForm("Semester End Exam", "Semester End Exam",
-                        Icons.track_changes,
+                        Icons.drive_file_rename_outline_outlined,
                         isDigits: true, controller: ctrl[idx++])),
               ]),
               Row(children: [
@@ -205,23 +205,23 @@ class _WeightagePageState extends State<WeightagePage> {
                         isDigits: true, controller: ctrl[idx++])),
                 Expanded(
                     child: MTextForm(
-                        "MCQ/Quiz", "MCQ/Quiz", Icons.track_changes,
+                        "MCQ/Quiz", "MCQ/Quiz", Icons.view_list_outlined,
                         isDigits: true, controller: ctrl[idx++])),
               ]),
               Row(children: [
                 Expanded(
                     child: MTextForm("Experience Learning",
-                        "Experience Learning", Icons.track_changes,
+                        "Experience Learning", Icons.explicit_outlined,
                         isDigits: true, controller: ctrl[idx++])),
                 Expanded(
                     child: MTextForm("Lab/Assignment/Activity",
-                        "Lab/Assignment/Activity", Icons.track_changes,
+                        "Lab/Assignment/Activity", Icons.laptop_chromebook,
                         isDigits: true, controller: ctrl[idx++])),
               ]),
               Row(children: [
                 Expanded(
                     child: MTextForm("Course Exit Survey", "Course Exit Survey",
-                        Icons.track_changes,
+                        Icons.countertops_rounded,
                         isDigits: true, controller: ctrl[idx++])),
                 Expanded(child: Container()),
               ]),

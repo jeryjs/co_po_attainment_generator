@@ -84,8 +84,8 @@ class _GetDetailsState extends State<GetDetails> {
             const Padding(padding: EdgeInsets.all(8)),
             Text('Subject Information:', style: heading),
             MTextForm("Course Name", "Ex: Calculus and Matrix Algebra", Icons.book, controller: ctrl[idx++]),
-            MTextForm("Course Code", "Ex: 22BS1MA01", Icons.menu_book, controller: ctrl[idx++]),
-            MTextForm("Branch/Section", "Ex: CSE-AI/1", Icons.library_books_outlined, controller: ctrl[idx++]),
+            MTextForm("Course Code", "Ex: 22BS1MA01", Icons.library_books_outlined, controller: ctrl[idx++]),
+            MTextForm("Branch/Section", "Ex: CSE-AI/1", Icons.menu_book, controller: ctrl[idx++]),
             MTextForm("Semester", "Ex: 4", Icons.calendar_today_outlined, isDigits: true, controller: ctrl[idx++]),
             MTextForm("Academic Year", "Ex: 2023", Icons.calendar_today_outlined, isDigits: true, controller: ctrl[idx++]),
             
