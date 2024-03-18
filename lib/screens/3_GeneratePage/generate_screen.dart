@@ -96,39 +96,15 @@ class _GeneratePageState extends State<GeneratePage> {
       height: scr.height * 0.5,
       width: scr.width * 0.35,
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Teacher:',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                Text(name, style: TextStyle(fontSize: 24)),
-                            SizedBox(height: 16),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Course Code:',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                Text(courseCode, style: TextStyle(fontSize: 24)),
-                SizedBox(height: 16),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Subject:',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                Text(subject, style: TextStyle(fontSize: 24)),
-                SizedBox(height: 16),
-              ],
-            ),
+            buildDetailCard("Teacher:", name, Icons.person),
+            buildDetailCard("Course Code:", courseCode, Icons.library_books),
+            buildDetailCard("Subject:", subject, Icons.menu_book),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomRight,
@@ -150,11 +126,33 @@ class _GeneratePageState extends State<GeneratePage> {
                   ),
                   deleteButtonTooltipMessage: isFileSelected
                       ? "Remove this file"
-                      : "You can import a file from the History\nto overwrite it with new data.",
+                      : "You can import a file from the History\nto overwrite it with the new data.",
                   onDeleted: () => setState(() => file = null),
                 ),
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildDetailCard(title, name, icon) {
+    return Expanded(
+      child: Card(
+        elevation: 4,
+        child: Row(
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CircleAvatar(
+              radius: 24,
+              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              child: Icon(icon, size: 24),
+            ),
+            SizedBox(width: 8),
+            Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            SizedBox(width: 16),
+            Text(name, style: TextStyle(fontSize: 20, overflow: TextOverflow.ellipsis)),
           ],
         ),
       ),
