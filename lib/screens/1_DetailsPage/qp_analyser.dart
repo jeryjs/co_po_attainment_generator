@@ -77,6 +77,7 @@ class _QpAnalyserState extends State<QpAnalyser> {
     _timer?.cancel(); // Cancel the previous timer if it's still running
     _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
       setState(() {
+        if (selectedImages.isEmpty) return;
         _currentImageIndex = (_currentImageIndex + 1) % selectedImages.length;
       });
     });
@@ -240,7 +241,7 @@ class _QpAnalyserState extends State<QpAnalyser> {
           widget.analysedData = AnalysedData.empty();
           selectedImages = [];
           _saveAnalysedData();
-          // _timer!.cancel();
+          _timer?.cancel();
         });
       },
       style: ButtonStyle(
