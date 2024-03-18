@@ -35,7 +35,7 @@ class _QpAnalyserState extends State<QpAnalyser> {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowMultiple: true,
-      allowedExtensions: ['jpg', 'png', 'webp', 'heic', 'heif'],
+      allowedExtensions: ['jpg', 'jpeg', 'png', 'webp', 'heic', 'heif'],
     );
 
     if (result != null) {
