@@ -72,9 +72,9 @@ class _WeightagePageState extends State<WeightagePage> {
     super.initState();
     _restoreControllers();
 
-    /// Set ctrl[1-6]'s value to always be 1/3 of the co target (ctrl[0])
+    /// Set ctrl[1-6]'s value to always be 3/100 * coTarget (ctrl[0])
     ctrl[0].addListener(() {
-      double value = double.tryParse(ctrl[0].text)! / 3;
+      double value = double.tryParse(ctrl[0].text)! * 3 / 100;
       for (int i = 1; i <= 6; i++) {
         ctrl[i].text = value.toStringAsFixed(2);
       }
