@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '/screens/1_DetailsPage/get_component.dart';
 import '/utils/utils.dart';
+import 'cell.dart';
 
 /// A class that represents the cell mappings for a specific purpose.
 class CellMapping {
@@ -30,19 +31,13 @@ class CellMapping {
         // "pos": controllers[8].text,
         // "psos": controllers[9].text,
         "mappings": {
-          'C6': controllers[0].text, // name
-          'C7': controllers[1].text, // designation
-          'C8': controllers[2].text, // course name
-          'C9': controllers[3].text, // course code
-          'C10': controllers[4].text, // branch/section
-          'C11': controllers[5].text, // Semester
-          'C12': controllers[6].text, // academic year
-        }
-      },
-      {
-        "sheet": "FINAL",
-        "mappings": {
-          'B21': controllers[7].text, // name
+          Cell.details.name: controllers[0].text,
+          Cell.details.designation: controllers[1].text,
+          Cell.details.courseName: controllers[2].text,
+          Cell.details.courseCode: controllers[3].text,
+          Cell.details.branch: controllers[4].text,
+          Cell.details.semester: controllers[5].text,
+          Cell.details.academicYear: controllers[6].text,
         }
       }
     ];
@@ -90,32 +85,32 @@ class CellMapping {
       {
         "sheet": "START",
         "mappings": {
-          'K6': ctrl[0].text,
+          Cell.weightage.coTarget: ctrl[0].text,
         }
       },
       {
         "sheet": "FINAL",
         "mappings": {
-          'B21': ctrl[1].text,
-          'C21': ctrl[2].text,
-          'D21': ctrl[3].text,
-          'E21': ctrl[4].text,
-          'F21': ctrl[5].text,
-          'G21': ctrl[6].text,
+          Cell.weightage.cos[0]: ctrl[1].text,
+          Cell.weightage.cos[1]: ctrl[2].text,
+          Cell.weightage.cos[2]: ctrl[3].text,
+          Cell.weightage.cos[3]: ctrl[4].text,
+          Cell.weightage.cos[4]: ctrl[5].text,
+          Cell.weightage.cos[5]: ctrl[6].text,
         }
       },
       {
         "sheet": "CO COMPONENT (%)",
         "mappings": {
-          'D6': ctrl[7].text,
-          'D7': ctrl[8].text,
-          'D8': ctrl[9].text,
-          'D9': ctrl[10].text,
-          'D10': ctrl[11].text,
-          'D11': ctrl[12].text,
-          'D12': ctrl[13].text,
-          'D13': ctrl[14].text,
-          'D14': ctrl[15].text,
+          Cell.weightage.direct: ctrl[7].text,
+          Cell.weightage.indirect: ctrl[8].text,
+          Cell.weightage.internalAssessment: ctrl[9].text,
+          Cell.weightage.semEndExam: ctrl[10].text,
+          Cell.weightage.classTest: ctrl[11].text,
+          Cell.weightage.mcqOrQuiz: ctrl[12].text,
+          Cell.weightage.expLearning: ctrl[13].text,
+          Cell.weightage.labAssignmentActivity: ctrl[14].text,
+          Cell.weightage.courseExitSurvey: ctrl[15].text,
         }
       }
     ];
