@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' as p;
 
 import '/models/cell.dart';
 import '/components/widgets.dart';
@@ -30,7 +31,7 @@ class GeneratePage extends StatefulWidget {
 /// The state associated with a [GeneratePage] widget.
 class _GeneratePageState extends State<GeneratePage> {
   /// The file that is imported by the user.
-  File? file;
+  File? importedFile;
 
   /// Operations generated for the current page.
   final operations = CellMapping("GeneratePage").generateOperations();
@@ -50,14 +51,20 @@ class _GeneratePageState extends State<GeneratePage> {
   ///
   /// It is a card containing a list of previously generated files.
   Widget buildFileHistory() {
-    return const Card(
+    return Card(
       child: Column(
         children: [
           Text(
             "History",
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          Expanded(child: IntrinsicHeight(child: GeneratorHistory())),
+          Expanded(child: IntrinsicHeight(
+            child: GeneratorHistory(
+              onFileImported: (File file) {
+                setState(() => importedFile = file);
+              },
+            ),
+          )),
         ],
       ),
     );
@@ -81,7 +88,7 @@ class _GeneratePageState extends State<GeneratePage> {
 
   /// Builds the import view.
   Widget buildImportView() {
-    final isFileSelected = file != null;
+    final isFileSelected = importedFile != null;
     final details = CellMapping("GenScrn").detailsMapping[0]["mappings"];
     final name = details[Cell.details.name];
     final courseCode = details[Cell.details.courseCode];
@@ -109,11 +116,19 @@ class _GeneratePageState extends State<GeneratePage> {
               child: Align(
                 alignment: Alignment.bottomRight,
                 child: Chip(
-                  label: Text(
-                    isFileSelected
-                        ? "Imported: ${file.toString()}"
-                        : "Imported: nil",
-                  ),
+                  label: isFileSelected
+                    ? Text.rich(
+                      TextSpan(
+                        text: "Imported: ",
+                        children: [
+                            TextSpan(
+                            text: p.basename(importedFile!.path),
+                            style: TextStyle(fontSize: 20, letterSpacing: -0.5, fontStyle: FontStyle.italic),
+                            ),
+                        ],
+                      ),
+                    )
+                    : Text("Imported: nil"),
                   labelStyle:
                       TextStyle(fontSize: 24, fontWeight: FontWeight.w300),
                   backgroundColor:
@@ -127,7 +142,7 @@ class _GeneratePageState extends State<GeneratePage> {
                   deleteButtonTooltipMessage: isFileSelected
                       ? "Remove this file"
                       : "You can import a file from the History\nto overwrite it with the new data.",
-                  onDeleted: () => setState(() => file = null),
+                  onDeleted: () => setState(() => importedFile = null),
                 ),
               ),
             ),
@@ -137,28 +152,33 @@ class _GeneratePageState extends State<GeneratePage> {
     );
   }
 
+  /// A widget that displays a row of given [title] & [name] with a circle avatar [icon].
   Widget buildDetailCard(title, name, icon) {
     return Expanded(
       child: Card(
         elevation: 4,
-        child: Row(
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CircleAvatar(
-              radius: 24,
-              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-              child: Icon(icon, size: 24),
-            ),
-            SizedBox(width: 8),
-            Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            SizedBox(width: 16),
-            Text(name, style: TextStyle(fontSize: 20, overflow: TextOverflow.ellipsis)),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CircleAvatar(
+                radius: 24,
+                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                child: Icon(icon, size: 24),
+              ),
+              SizedBox(width: 8),
+              Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              SizedBox(width: 16),
+              Text(name, style: TextStyle(fontSize: 20, overflow: TextOverflow.ellipsis)),
+            ],
+          ),
         ),
       ),
     );
   }
 
+  /// A widget that displays a large generate elevated button.
   Padding buildGenerateButton() {
     final scr = MediaQuery.of(context).size;
     return Padding(
@@ -177,7 +197,7 @@ class _GeneratePageState extends State<GeneratePage> {
           ),
         ),
         onPressed: () async {
-          await showGeneratingDialog(ExcelWriter().writeToExcel());
+          await showGeneratingDialog(ExcelWriter().writeToExcel(importedFile));
         },
         child: const Text('Generate Excel', style: TextStyle(fontSize: 24)),
       ),

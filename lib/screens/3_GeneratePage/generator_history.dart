@@ -9,7 +9,8 @@ import 'package:path_provider/path_provider.dart';
 /// `GeneratorHistory` is a StatefulWidget that displays a history of generated files.
 /// It watches for changes in the output directory and updates the UI accordingly.
 class GeneratorHistory extends StatefulWidget {
-  const GeneratorHistory({super.key});
+  final Function(File) onFileImported;
+  const GeneratorHistory({super.key, required this.onFileImported});
 
   @override
   State<GeneratorHistory> createState() => _GeneratorHistoryState();
@@ -191,10 +192,12 @@ class _GeneratorHistoryState extends State<GeneratorHistory> with TickerProvider
                   tooltip: "Open",
                   onPressed: () => OpenFile.open(file.path),
                 ),
-                ElevatedButton.icon(
-                  icon: const Icon(Icons.arrow_circle_right_outlined),
+                ActionChip(
+                  avatar: const Icon(Icons.arrow_circle_right_outlined),
                   label: const Text("Import"),
-                  onPressed: () {},
+                  onPressed: () => widget.onFileImported(file),
+                  backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+                  tooltip: "Import this file so that it can be used as a template.\nImporting lets you generate a new file with the data in this file as a base.",
                 ),
               ],
             ),
