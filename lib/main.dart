@@ -48,7 +48,7 @@ class _MainAppState extends State<MainApp> {
 	/// Saves the selected theme mode to shared preferences.
 	void _toggleThemeMode() async {
 		setState(() => themeMode =
-			themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light);
+			themeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark);
 		final prefs = await SharedPreferences.getInstance();
 		prefs.setInt('themeMode', themeMode.index);
 	}
@@ -121,9 +121,9 @@ class _MainAppState extends State<MainApp> {
 				mainAxisAlignment: MainAxisAlignment.center,
 				children: [
 					logo,
-					themeMode != ThemeMode.light
-						? InvertColors(child: banner)
-						: banner,
+					themeMode != ThemeMode.dark
+						? banner
+						: InvertColors(child: banner),
 				],
 			),
 			actions: [
@@ -134,12 +134,12 @@ class _MainAppState extends State<MainApp> {
 					icon: const Icon(Icons.info),
 				),
 				Switch(
-					value: themeMode != ThemeMode.light,
+					value: themeMode == ThemeMode.dark,
 					onChanged: (value) => _toggleThemeMode(),
 					thumbIcon: MaterialStateProperty.all<Icon?>(
-						Icon(themeMode != ThemeMode.light
-							? Icons.dark_mode
-							: Icons.light_mode),
+						Icon(themeMode != ThemeMode.dark
+							? Icons.light_mode
+							: Icons.dark_mode),
 					),
 				),
 			],
