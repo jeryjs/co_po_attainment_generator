@@ -76,7 +76,7 @@ class _WeightagePageState extends State<WeightagePage> {
     ctrl[0].addListener(() {
       double value = double.tryParse(ctrl[0].text)! * 3 / 100;
       for (int i = 1; i <= 6; i++) {
-        ctrl[i].text = value.toStringAsFixed(2);
+        ctrl[i].text = value.toStringAsFixed(2).replaceAll(RegExp(r'\.0$|0$'), '');
       }
     });
   }
