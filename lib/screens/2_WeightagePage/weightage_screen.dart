@@ -46,7 +46,7 @@ class _WeightagePageState extends State<WeightagePage> {
   /// This allows the user to leave the page and come back without losing their input.
   Future<void> _restoreControllers() async {
     // initialize the controllers with default values
-    final coLevels = [70, 2.3, 2.3, 2.3, 2.3, 2.3, 2.3];
+    final coLevels = [70, 2.1, 2.1, 2.1, 2.1, 2.1, 2.1];
     final weightages = [80, 20, 50, 50, 20, 5, 10, 10, 20, 50];
     final targets = [50, 50, 50];
     final defaults = coLevels + weightages + targets;
@@ -72,11 +72,11 @@ class _WeightagePageState extends State<WeightagePage> {
     super.initState();
     _restoreControllers();
 
-    /// Set ctrl[1-6]'s value to always be 3/100 * coTarget (ctrl[0])
+    /// Set CO-Values (ctrl[1-6])'s value to always be 3% of the CO-Target (ctrl[0])
     ctrl[0].addListener(() {
       double value = double.tryParse(ctrl[0].text)! * 3 / 100;
       for (int i = 1; i <= 6; i++) {
-        ctrl[i].text = value.toStringAsFixed(2);
+        ctrl[i].text = value.toStringAsFixed(2).replaceAll(RegExp(r'\.0$|0$'), '');
       }
     });
   }
