@@ -46,7 +46,7 @@ class _WeightagePageState extends State<WeightagePage> {
   /// This allows the user to leave the page and come back without losing their input.
   Future<void> _restoreControllers() async {
     // initialize the controllers with default values
-    final coLevels = [70, 2.3, 2.3, 2.3, 2.3, 2.3, 2.3];
+    final coLevels = [70, 2.1, 2.1, 2.1, 2.1, 2.1, 2.1];
     final weightages = [80, 20, 50, 50, 20, 5, 10, 10, 20, 50];
     final targets = [50, 50, 50];
     final defaults = coLevels + weightages + targets;
