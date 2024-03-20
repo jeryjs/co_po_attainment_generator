@@ -33,9 +33,6 @@ class _GeneratePageState extends State<GeneratePage> {
   /// The file that is imported by the user.
   File? importedFile;
 
-  /// Operations generated for the current page.
-  final operations = CellMapping("GeneratePage").generateOperations();
-
   /// Describes the part of the user interface represented by this widget.
   @override
   Widget build(BuildContext context) {
