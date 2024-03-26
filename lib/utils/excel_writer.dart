@@ -41,13 +41,13 @@ class ExcelWriter {
 
     // Start the excelWriter as a separate process
     final process = await Process.start(excelWriter.absolute.path,
-        ["v1", operationsJson, inputFile.path, outputFile.path], runInShell: true);
+        ["-v", "v1", "-op", operationsJson, "-i", inputFile.path, "-o", outputFile.path]);
     
-    stdout.addStream(process.stdout);
-    // stderr.addStream(process.stderr);
+    // stdout.addStream(process.stdout);
+    stderr.addStream(process.stderr);
 
-    // Listen to the stderr stream and yield the data
-    await for (var data in process.stderr.transform(utf8.decoder)) {
+    // Listen to the stdout stream and yield the data
+    await for (var data in process.stdout.transform(utf8.decoder)) {
       debugPrint(data);
       yield data;
     }
