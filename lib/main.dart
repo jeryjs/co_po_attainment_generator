@@ -1,3 +1,5 @@
+import 'package:debug_console/controller.dart';
+import 'package:debug_console/debug_console.dart';
 import 'package:flutter/material.dart';
 import 'package:invert_colors/invert_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,7 +16,9 @@ void main() async {
 	WidgetsFlutterBinding.ensureInitialized();
 	SharedPreferences prefs = await SharedPreferences.getInstance();
 	ThemeMode themeMode = ThemeMode.values[prefs.getInt('themeMode') ?? 0];
-	runApp(MainApp(themeMode: themeMode));
+  DebugConsole.listen(() {
+	  runApp(MainApp(themeMode: themeMode));
+  });
 }
 
 /// The main application widget.
@@ -76,37 +80,41 @@ class _MainAppState extends State<MainApp> {
 			darkTheme: ThemeData.from(
 				colorScheme: ColorScheme.fromSeed(
 					seedColor: const Color(0xFF031C53), brightness: Brightness.dark)),
-			home: Scaffold(
-				appBar: buildAppBar(),
-				body: Center(
-					child: Row(
-						mainAxisAlignment: MainAxisAlignment.center,
-						children: [
-							Container(
-								width: scr.width * 0.85,
-								height: scr.height * 0.8,
-								decoration: BoxDecoration(
-									borderRadius: BorderRadius.circular(12),
-									border: Border.fromBorderSide(BorderSide(
-										color: clr.onPrimary.withAlpha(50), width: 2))),
-								child: AnimatedSwitcher(
-									duration: const Duration(milliseconds: 500),
-									transitionBuilder:
-										(Widget child, Animation<double> animation) {
-										return FadeTransition(
-											opacity: animation,
-											child: child,
-										);
-									},
-									child: currentPage(),
-								),
-							),
-							const SizedBox(width: 16),
-							SizedBox(height: scr.height * 0.8, child: buildNavButtons(context)),
-						],
-					),
-				),
-			),
+			home: DebugConsolePopup(
+        showButton: true,
+        savePath: "./debug_logs.log",
+        child: Scaffold(
+          appBar: buildAppBar(),
+          body: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: scr.width * 0.85,
+                  height: scr.height * 0.8,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.fromBorderSide(BorderSide(
+                      color: clr.onPrimary.withAlpha(50), width: 2))),
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 500),
+                    transitionBuilder:
+                      (Widget child, Animation<double> animation) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      );
+                    },
+                    child: currentPage(),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                SizedBox(height: scr.height * 0.8, child: buildNavButtons(context)),
+              ],
+            ),
+          ),
+        ),
+      ),
 		);
 	}
 
