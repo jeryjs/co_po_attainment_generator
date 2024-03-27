@@ -1,12 +1,13 @@
 name: co_po_generator
 description: "A CO-PO Attainment Generator for FET, Jain University"
 publish_to: 'none'
-version: 0.4.1-alpha
+version: 0.4.3-alpha
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
+  debug_console: ^0.0.1
   file_picker: ^6.2.0
   flutter:
     sdk: flutter

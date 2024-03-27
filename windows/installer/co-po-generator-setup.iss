@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "CO-PO Generator"
-#define MyAppVersion "v0.4.1-alpha"
+#define MyAppVersion "v0.4.3-alpha"
 #define MyAppPublisher "Jery"
 #define MyAppExeName "co_po_generator.exe"
 #define RootDir "..\.."
