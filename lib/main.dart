@@ -158,7 +158,7 @@ class _MainAppState extends State<MainApp> {
 							style: fluentUiBtn(context),
 							onPressed: index < pages.length - 1
 								? () {
-									if (isFilled()) {
+									if (currentPage().isFilled()) {
 										if (index == 2) {
 											setState(() => index = 0);
 										} else {
@@ -177,13 +177,11 @@ class _MainAppState extends State<MainApp> {
 							style: fluentUiBtn(context),
 							onPressed: index > 0
 								? () {
-									if (true) {
 										if (index == 0) {
 											setState(() => index = 2);
 										} else {
 											setState(() => --index);
 										}
-									}
 									}
 								: null,
 							child: const Icon(Icons.arrow_back_ios),
