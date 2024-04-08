@@ -121,9 +121,7 @@ class _MainAppState extends State<MainApp> {
 				mainAxisAlignment: MainAxisAlignment.center,
 				children: [
 					logo,
-					themeMode != ThemeMode.dark
-						? banner
-						: InvertColors(child: banner),
+					const Text("CO-PO Attainment Calculator", style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold))
 				],
 			),
 			actions: [
@@ -166,11 +164,13 @@ class _MainAppState extends State<MainApp> {
               applicationIcon: logo,
               applicationName: Constants.appName,
               children: [
-                Text("Developer: Jery"),
-                Text("Excel Calculations: Dr. Vishal")
+                const Text("Developer: Jery"),
+                const Text("Excel Calculations: Dr. Vishal"),
+                const Text("Affiliation: Jain University"),
               ]
             );
 					},
+          tooltip: "About",
 					icon: const Icon(Icons.info),
 				),
 				Switch(
