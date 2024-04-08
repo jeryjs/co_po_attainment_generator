@@ -2,12 +2,12 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "CO-PO Generator"
-#define MyAppVersion "v0.4.4-alpha"
+#define MyAppVersion "v0.5.0-alpha"
 #define MyAppPublisher "Jery"
 #define MyAppExeName "co_po_generator.exe"
 #define RootDir "..\.."
 
-; & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" windows\installer\co-po-generator-setup.iss
+; & c:\Users\Jery\AppData\Local\Programs\Inno Setup 6\ISCC.exe windows\installer\co-po-generator-setup.iss
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
