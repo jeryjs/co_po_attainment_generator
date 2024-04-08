@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:invert_colors/invert_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'components/widgets.dart';
@@ -37,11 +36,6 @@ class _MainAppState extends State<MainApp> {
 	/// Returns the currently displayed page.
 	dynamic currentPage() {
 		return pages[index];
-	}
-
-	/// Checks if the current page and its widgets are filled.
-	bool isFilled() {
-		return currentPage().isFilled();
 	}
 
 	/// Toggles the theme mode between light and dark.
@@ -110,20 +104,12 @@ class _MainAppState extends State<MainApp> {
 		);
 	}
 
-	/// Builds the app bar with the logo and theme mode switch.
+	/// Builds the app bar with the App Name and some action.
 	PreferredSizeWidget buildAppBar() {
-		final logo = Image.asset('assets/logo.png',height: 85,fit: BoxFit.cover,alignment: Alignment.centerLeft);
-		final banner = Image.asset('assets/banner.png',height: 85,fit: BoxFit.cover,alignment: Alignment.centerRight);
 		return AppBar(
 			centerTitle: true,
 			toolbarHeight: 90,
-			title: Row(
-				mainAxisAlignment: MainAxisAlignment.center,
-				children: [
-					logo,
-					const Text("CO-PO Attainment Calculator", style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold))
-				],
-			),
+			title: const Text("CO-PO Attainment Calculator", style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
 			actions: [
         IconButton(
           onPressed: () {
@@ -161,7 +147,6 @@ class _MainAppState extends State<MainApp> {
 					onPressed: () {
             showAboutDialog(
               context: context,
-              applicationIcon: logo,
               applicationName: Constants.appName,
               children: [
                 const Text("Developer: Jery"),
@@ -216,13 +201,7 @@ class _MainAppState extends State<MainApp> {
 						child: ElevatedButton(
 							style: fluentUiBtn(context),
 							onPressed: index > 0
-								? () {
-										if (index == 0) {
-											setState(() => index = 2);
-										} else {
-											setState(() => --index);
-										}
-									}
+								? () => setState(() => --index)
 								: null,
 							child: const Icon(Icons.arrow_back_ios),
 						),
