@@ -4,9 +4,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'components/widgets.dart';
 import 'constants.dart';
-import 'screens/3_GeneratePage/generate_screen.dart';
 import 'screens/1_DetailsPage/details_screen.dart';
 import 'screens/2_WeightagePage/weightage_screen.dart';
+import 'screens/3_GeneratePage/generate_screen.dart';
 
 /// The main entry point of the application.
 /// It initializes the necessary dependencies and runs the app.
@@ -14,7 +14,7 @@ void main() async {
 	WidgetsFlutterBinding.ensureInitialized();
 	SharedPreferences prefs = await SharedPreferences.getInstance();
 	ThemeMode themeMode = ThemeMode.values[prefs.getInt('themeMode') ?? 0];
-	runApp(MainApp(themeMode: themeMode));
+	runApp(MaterialApp(home: MainApp(themeMode: themeMode)));
 }
 
 /// The main application widget.
@@ -121,16 +121,56 @@ class _MainAppState extends State<MainApp> {
 				mainAxisAlignment: MainAxisAlignment.center,
 				children: [
 					logo,
-					themeMode != ThemeMode.dark
-						? banner
-						: InvertColors(child: banner),
+					const Text("CO-PO Attainment Calculator", style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold))
 				],
 			),
 			actions: [
-				IconButton(
+        IconButton(
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text("Reset Preferences"),
+                  content: const Text("This will reset ur preferences.\nPreviously entered data will need to be entered again.\nDo you wish to Proceed?"),
+                  actions: [
+                    TextButton(
+                      child: const Text("Cancel"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    TextButton(
+                      child: const Text("Reset"),
+                      onPressed: () {
+                        SharedPreferences.getInstance().then((prefs) {
+                          prefs.clear();
+                        });
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          tooltip: "Reset all preferences?",
+          icon: const Icon(Icons.delete_sweep_outlined),
+        ),
+        IconButton(
 					onPressed: () {
-						showAboutDialog(context: context, applicationIcon: logo, applicationName: Constants.appName, applicationVersion: "v1.0");
+            showAboutDialog(
+              context: context,
+              applicationIcon: logo,
+              applicationName: Constants.appName,
+              children: [
+                const Text("Developer: Jery"),
+                const Text("Excel Calculations: Dr. Vishal"),
+                const Text("Affiliation: Jain University"),
+              ]
+            );
 					},
+          tooltip: "About",
 					icon: const Icon(Icons.info),
 				),
 				Switch(
@@ -158,7 +198,7 @@ class _MainAppState extends State<MainApp> {
 							style: fluentUiBtn(context),
 							onPressed: index < pages.length - 1
 								? () {
-									if (isFilled()) {
+									if (currentPage().isFilled()) {
 										if (index == 2) {
 											setState(() => index = 0);
 										} else {
@@ -177,13 +217,11 @@ class _MainAppState extends State<MainApp> {
 							style: fluentUiBtn(context),
 							onPressed: index > 0
 								? () {
-									if (true) {
 										if (index == 0) {
 											setState(() => index = 2);
 										} else {
 											setState(() => --index);
 										}
-									}
 									}
 								: null,
 							child: const Icon(Icons.arrow_back_ios),
