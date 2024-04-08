@@ -4,9 +4,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'components/widgets.dart';
 import 'constants.dart';
-import 'screens/3_GeneratePage/generate_screen.dart';
 import 'screens/1_DetailsPage/details_screen.dart';
 import 'screens/2_WeightagePage/weightage_screen.dart';
+import 'screens/3_GeneratePage/generate_screen.dart';
 
 /// The main entry point of the application.
 /// It initializes the necessary dependencies and runs the app.
@@ -14,7 +14,7 @@ void main() async {
 	WidgetsFlutterBinding.ensureInitialized();
 	SharedPreferences prefs = await SharedPreferences.getInstance();
 	ThemeMode themeMode = ThemeMode.values[prefs.getInt('themeMode') ?? 0];
-	runApp(MainApp(themeMode: themeMode));
+	runApp(MaterialApp(home: MainApp(themeMode: themeMode)));
 }
 
 /// The main application widget.
@@ -127,9 +127,49 @@ class _MainAppState extends State<MainApp> {
 				],
 			),
 			actions: [
-				IconButton(
+        IconButton(
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text("Reset Preferences"),
+                  content: const Text("This will reset ur preferences.\nPreviously entered data will need to be entered again.\nDo you wish to Proceed?"),
+                  actions: [
+                    TextButton(
+                      child: const Text("Cancel"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    TextButton(
+                      child: const Text("Reset"),
+                      onPressed: () {
+                        SharedPreferences.getInstance().then((prefs) {
+                          prefs.clear();
+                        });
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          tooltip: "Reset all preferences?",
+          icon: const Icon(Icons.delete_sweep_outlined),
+        ),
+        IconButton(
 					onPressed: () {
-						showAboutDialog(context: context, applicationIcon: logo, applicationName: Constants.appName, applicationVersion: "v1.0");
+            showAboutDialog(
+              context: context,
+              applicationIcon: logo,
+              applicationName: Constants.appName,
+              children: [
+                Text("Developer: Jery"),
+                Text("Excel Calculations: Dr. Vishal")
+              ]
+            );
 					},
 					icon: const Icon(Icons.info),
 				),
