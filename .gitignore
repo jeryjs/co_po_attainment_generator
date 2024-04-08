@@ -44,6 +44,4 @@ app.*.map.json
 
 # secrets
 assets/api
-assets/input.*
-assets/~$input.*
 *.code-workspace
