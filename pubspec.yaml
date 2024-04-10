@@ -1,7 +1,7 @@
 name: co_po_generator
 description: "A CO-PO Attainment Generator for FET, Jain University"
 publish_to: 'none'
-version: 0.5.0-alpha
+version: 0.5.1-alpha
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -41,7 +41,7 @@ msix_config:
   publisher: Jery
   identity_name: com.jery.co-po-generator
   output_path: windows\installer\
-  build_windows: false
+  build_windows: true
   windows_build_args: "--obfuscate --split-debug-info=./build/debug-info"
   app_installer:
     publish_folder_path: setup\
