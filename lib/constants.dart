@@ -1,5 +1,5 @@
 // Constants for the application
 
 class Constants {
-  static const String appName = 'CO-PO Generator';
+  static const String appName = 'CO-PO Attainment Generator';
 }

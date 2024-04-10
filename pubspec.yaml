@@ -36,7 +36,7 @@ flutter:
 # msix packaging configuration
 # run with the command [dart run msix:create] or [dart run msix:publish]
 msix_config:
-  display_name: CO-PO Generator
+  display_name: CO-PO Attainment Generator
   publisher_display_name: Jery
   publisher: Jery
   identity_name: com.jery.co-po-generator
