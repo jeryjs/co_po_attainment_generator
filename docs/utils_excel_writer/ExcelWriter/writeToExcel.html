@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the writeToExcel method from the ExcelWriter class, for the Dart programming language.">
+  <title>writeToExcel method - ExcelWriter class - excel_writer library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">co_po_generator</a></li>
+    <li><a href="../../utils_excel_writer/utils_excel_writer-library.html">utils\excel_writer.dart</a></li>
+    <li><a href="../../utils_excel_writer/ExcelWriter-class.html">ExcelWriter</a></li>
+    <li class="self-crumb">writeToExcel method</li>
+  </ol>
+  <div class="self-name">writeToExcel</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="utils_excel_writer&#47;ExcelWriter-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-method">writeToExcel</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Stream-class.html">Stream</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span>
+<span class="name ">writeToExcel</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="writeToExcel-param-inputFile"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-io/File-class.html">File</a>?</span> <span class="parameter-name">inputFile</span></span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>A function that writes data from <a href="../../models_cell_mapping/CellMapping-class.html">CellMapping</a> to the output excel file.</p>
+<ul>
+<li>It uses <code>github.com/jeryjs/excel-writer</code> for writing data to the excel file.</li>
+</ul>
+<p>It can accept a <code>inputFile</code> if a previously created excel file is to be used as a template.
+If no file is passed or the file is null, it will be created using the default template.</p>
+<p>It returns a <a href="https://api.flutter.dev/flutter/dart-async/Stream-class.html">Stream</a> that can be used to display the progress of the operation.
+Once successfully written to excel, it launches the file using the default app.</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Stream&lt;String&gt; writeToExcel(File? inputFile) async* {
+  final appDir = await getApplicationSupportDirectory();
+
+  &#47;&#47; Load the Excel files
+  inputFile ??= await getFileFromAssets(&#39;assets&#47;input.xlsx&#39;);
+  final outputName = &#39;${cm.courseCode}&#47;${getFormattedDate(DateTime.now())}&#39;;
+  final outputFile = File(&#39;${appDir.path}&#47;output&#47;$outputName.xlsx&#39;);
+  outputFile.create(exclusive: true, recursive: true);
+
+  &#47;&#47; load the excel-writer.exe
+  final excelWriter = await getFileFromAssets(&#39;assets&#47;excel-writer.exe&#39;);
+
+  &#47;&#47; Define the operations to be performed on the excel file
+  List&lt;Map&lt;String, dynamic&gt;&gt; operations = cm.generateOperations();
+
+  &#47;&#47; encode the operations to a jsonstring
+  final operationsJson = jsonEncode(operations);
+
+  &#47;&#47; Start the excelWriter as a separate process
+  final process = await Process.start(excelWriter.absolute.path,
+      [&quot;-v&quot;, &quot;v1&quot;, &quot;-op&quot;, operationsJson, &quot;-i&quot;, inputFile.path, &quot;-o&quot;, outputFile.path]);
+
+  &#47;&#47; stdout.addStream(process.stdout);
+  stderr.addStream(process.stderr);
+
+  &#47;&#47; Listen to the stdout stream and yield the data
+  await for (var data in process.stdout.transform(utf8.decoder)) {
+    debugPrint(data);
+    yield data;
+  }
+
+  debugPrint(&quot;Finished writing to file: ${outputFile.lengthSync()}&quot;);
+
+  &#47;&#47; Launch the output excel with default app.
+  await OpenFile.open(outputFile.path);
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">co_po_generator</a></li>
+    <li><a href="../../utils_excel_writer/utils_excel_writer-library.html">excel_writer</a></li>
+    <li><a href="../../utils_excel_writer/ExcelWriter-class.html">ExcelWriter</a></li>
+    <li class="self-crumb">writeToExcel method</li>
+</ol>
+
+
+    <h5>ExcelWriter class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    co_po_generator
+      0.5.0-alpha
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+
