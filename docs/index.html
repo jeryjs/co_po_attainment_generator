@@ -52,8 +52,73 @@
   <div id="dartdoc-main-content" class="main-content">
       
 <section class="desc markdown">
-  <h1 id="co-po-generator">CO-PO Generator</h1>
-<p>A new Flutter project.</p>
+  <h1 id="co-po-attainment-generator">CO-PO Attainment Generator</h1>
+<img src="assets\app_icon.webp" width="10%">
+<p><a href="https://github.com/jeryjs/co_po_attainment_generator/releases/latest"><img src="https://img.shields.io/badge/Install-Now-brightgreen" alt="Install App"></a></p>
+<p>CO-PO Attainment Generator is a Flutter-based calculator designed to automate the process of generating an Excel sheet for calculating Course Outcome (CO) to Program Outcome (PO) attainment. This application is currently targeted for Windows platform and is in its alpha stage.</p>
+<h2 id="overview">Overview</h2>
+<p>The purpose of CO-PO Attainment Generator is to streamline the calculation process, reducing manual effort and improving result accuracy. It utilizes various dependencies to provide its functionality, including:</p>
+<ul>
+<li><strong>file_picker</strong>: For picking files from the file system.</li>
+<li><strong>google_generative_ai</strong>: For extracting question paper details using Google's Gemini AI.</li>
+<li><strong>image</strong>: For handling images used in question paper extraction.</li>
+<li><strong>open_file</strong>: For opening files, particularly generated Excel files.</li>
+<li><strong>path</strong> and <strong>path_provider</strong>: For handling file paths and common filesystem locations.</li>
+<li><strong>shared_preferences</strong>: For persisting user data.</li>
+<li><strong>shimmer</strong>: For adding shimmer effect animation in the UI.</li>
+<li><strong>msix</strong>: For generating an MSIX installer for Windows platform.</li>
+</ul>
+<h2 id="preview">Preview</h2>
+<img src="https://i.imgur.com/0dAQfI2.png" width="45.9%">
+<img src="https://i.imgur.com/M4HUzq0.png" width="45.9%">
+<img src="https://i.imgur.com/0gzcXAo.png" width="45.9%">
+<h2 id="usage">Usage</h2>
+<p>To use CO-PO Attainment Generator, follow these steps:</p>
+<ol>
+<li>Launch CO-PO Generator.</li>
+<li>Fill in the details.
+<ul>
+<li>You can optionally import a question paper to analyse and extract its details with Gemini AI.</li>
+</ul>
+</li>
+<li>Fill in the Weightages.</li>
+<li>Click generate!
+<ul>
+<li>You can optionally import a previously generated file to use it as template.</li>
+</ul>
+</li>
+</ol>
+<h2 id="installation">Installation</h2>
+<p><a href="https://github.com/jeryjs/co_po_attainment_generator/releases/latest/"><img src="https://img.shields.io/badge/Install-Now-brightgreen" alt="Install App"></a></p>
+<p>To install CO-PO Attainment Generator, follow these steps:</p>
+<ol>
+<li>
+<p>Go to the latest <a href="https://github.com/jeryjs/co_po_attainment_generator/releases/latest">release</a> or visit the <a href="https://github.com/jeryjs/co_po_attainment_generator/releases">releases page</a>.</p>
+</li>
+<li>
+<p>Download the <code>co-po-generator-setup.exe</code> from 'Assets'.</p>
+<ul>
+<li>Optionally, you can instead download the msix version, however that requires that you manually trust its certificate.</li>
+</ul>
+</li>
+<li>
+<p>Double-click on the downloaded <code>.exe</code> file to start the installation process. You may see a security warning, but you can safely proceed with the installation.</p>
+</li>
+<li>
+<p>Follow the on-screen instructions to complete the installation. Choose the installation location and agree to the terms and conditions.</p>
+</li>
+<li>
+<p>After the installation is finished, you should see a shortcut for CO-PO Attainment Generator on your desktop or in the Start menu.</p>
+</li>
+<li>
+<p>Double-click on the shortcut to launch CO-PO Attainment Generator.</p>
+</li>
+</ol>
+<p>That's it! You have successfully installed CO-PO Attainment Generator on your computer.</p>
+<h2 id="documentation">Documentation</h2>
+<p>For more detailed documentation, including API references and usage guidelines, visit <a href="https://jeryjs.github.io/co_po_attainment_generator/">co_po_generator - Dart API docs</a>.</p>
+<h2 id="license">License</h2>
+<p>This project is licensed under the <a href="LICENSE">AGPL-3.0 license</a>.</p>
 </section>
 
 
@@ -166,14 +231,14 @@
 </dd>
 
           <dt id="widgets">
-  <span class="name"><a href="screens_2_WeightagePage_widgets/screens_2_WeightagePage_widgets-library.html">screens\2_WeightagePage\widgets</a></span> 
+  <span class="name"><a href="components_widgets/components_widgets-library.html">components\widgets</a></span> 
 
 </dt>
 <dd>
 </dd>
 
           <dt id="widgets">
-  <span class="name"><a href="components_widgets/components_widgets-library.html">components\widgets</a></span> 
+  <span class="name"><a href="screens_2_WeightagePage_widgets/screens_2_WeightagePage_widgets-library.html">screens\2_WeightagePage\widgets</a></span> 
 
 </dt>
 <dd>
@@ -215,8 +280,8 @@
       <li><a href="screens_1_DetailsPage_qp_analyser/screens_1_DetailsPage_qp_analyser-library.html">screens\1_DetailsPage\qp_analyser</a></li>
       <li><a href="utils_utils/utils_utils-library.html">utils\utils</a></li>
       <li><a href="screens_2_WeightagePage_weightage_screen/screens_2_WeightagePage_weightage_screen-library.html">screens\2_WeightagePage\weightage_screen</a></li>
-      <li><a href="screens_2_WeightagePage_widgets/screens_2_WeightagePage_widgets-library.html">screens\2_WeightagePage\widgets</a></li>
       <li><a href="components_widgets/components_widgets-library.html">components\widgets</a></li>
+      <li><a href="screens_2_WeightagePage_widgets/screens_2_WeightagePage_widgets-library.html">screens\2_WeightagePage\widgets</a></li>
 </ol>
 
   </div>
@@ -229,7 +294,7 @@
 <footer>
   <span class="no-break">
     co_po_generator
-      0.5.0-alpha
+      0.5.1-alpha
   </span>
 
   
