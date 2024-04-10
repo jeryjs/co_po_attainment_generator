@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_file/open_file.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'components/widgets.dart';
@@ -109,7 +110,14 @@ class _MainAppState extends State<MainApp> {
 		return AppBar(
 			centerTitle: true,
 			toolbarHeight: 90,
-			title: const Text("CO-PO Attainment Calculator", style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+			title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+			  children: [
+          Image.asset('assets/app_icon.webp', height: 60),
+          const SizedBox(width: 10),
+			    const Text(Constants.appName, style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+			  ],
+			),
 			actions: [
         IconButton(
           onPressed: () {
@@ -148,11 +156,36 @@ class _MainAppState extends State<MainApp> {
             showAboutDialog(
               context: context,
               applicationName: Constants.appName,
+              applicationVersion: 'v0.5.0-alpha',
+              applicationIcon: Image.asset('assets/app_icon.webp', height: 50),
               children: [
-                const Text("Developer: Jery"),
-                const Text("Excel Calculations: Dr. Vishal"),
-                const Text("Affiliation: Jain University"),
-              ]
+                const Card(
+                  child: ListBody(
+                    children: [
+                      ListTile(
+                          leading: Icon(Icons.code),
+                          title: Text("Developer: Jery")),
+                      ListTile(
+                          leading: Icon(Icons.calculate_outlined),
+                          title: Text("Excel Calculations: Dr. Vishal Patil")),
+                      ListTile(
+                          leading: Icon(Icons.school),
+                          title: Text("Affiliation: Jain University")),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Card(
+                  child: ListBody(
+                    children: [
+                      ListTile(
+                        leading: const Icon(Icons.cloud_circle),
+                        title: const Text("github.com/jeryjs/co_po_attainment_generator/"),
+                        onTap: () => OpenFile.open('https://github.com/jeryjs/co_po_attainment_generator/')),
+                    ],
+                  ),
+                )
+              ],
             );
 					},
           tooltip: "About",
