@@ -156,7 +156,7 @@ class _MainAppState extends State<MainApp> {
             showAboutDialog(
               context: context,
               applicationName: Constants.appName,
-              applicationVersion: 'v0.5.0-alpha',
+              applicationVersion: 'v0.5.1-alpha',
               applicationIcon: Image.asset('assets/app_icon.webp', height: 50),
               children: [
                 const Card(
