@@ -117,6 +117,7 @@ class _WeightagePageState extends State<WeightagePage> {
       child: FocusTraversalGroup(
         child: Form(
           key: formKey[0],
+          autovalidateMode: AutovalidateMode.always,
           child: ListView(
             children: [
               Center(
@@ -170,6 +171,7 @@ class _WeightagePageState extends State<WeightagePage> {
       child: FocusTraversalGroup(
         child: Form(
           key: formKey[1],
+          autovalidateMode: AutovalidateMode.always,
           child: ListView(
             // shrinkWrap: true,
             children: [
@@ -245,6 +247,7 @@ class _WeightagePageState extends State<WeightagePage> {
           child: SingleChildScrollView(
             child: Form(
               key: formKey[2],
+              autovalidateMode: AutovalidateMode.always,
               child: Table(
                 border: TableBorder.all(
                     width: 0.3,
