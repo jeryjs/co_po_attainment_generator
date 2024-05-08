@@ -37,7 +37,7 @@ class _WeightagePageState extends State<WeightagePage> {
   get formKey => widget.formKeys;
 
   /// List of text controllers for the input fields.
-  final ctrl = List.generate(20, (index) => TextEditingController(text: null));
+  final ctrl = List.generate(21, (index) => TextEditingController(text: null));
 
   /// Cell mapping for the weightage.
   final cellMapping = CellMapping("weightage");
@@ -47,8 +47,8 @@ class _WeightagePageState extends State<WeightagePage> {
   Future<void> _restoreControllers() async {
     // initialize the controllers with default values
     final coLevels = [70, 2.1, 2.1, 2.1, 2.1, 2.1, 2.1];
-    final weightages = [80, 20, 50, 50, 20, 5, 10, 10, 20, 50];
-    final targets = [50, 50, 50];
+    final weightages = [80, 20, 50, 50, 20, 5, 10, 10, 20];
+    final targets = [70, 80, 50, 50, 50]; // min, max, m1, m2, m3
     final defaults = coLevels + weightages + targets;
 
     final prefs = await SharedPreferences.getInstance();
@@ -235,8 +235,9 @@ class _WeightagePageState extends State<WeightagePage> {
   /// Builds the Targets card.
   /// This card contains a form with input fields for the targets.
   Widget buildTargets() {
-    final width = MediaQuery.of(context).size.width * 0.1;
-    int idx = 16;
+    final width = MediaQuery.of(context).size.width * 0.03;
+    List<TextEditingController> range = ctrl.sublist(16,18);
+    int idx = 18;
     return Card(
       child: Center(
         child: Padding(
@@ -246,9 +247,9 @@ class _WeightagePageState extends State<WeightagePage> {
               key: formKey[2],
               child: Table(
                 border: TableBorder.all(
-                    width: 0.5,
-                    color: Theme.of(context).colorScheme.primary,
-                    borderRadius: BorderRadius.circular(24)),
+                    width: 0.3,
+                    color: Theme.of(context).colorScheme.onBackground,
+                    borderRadius: BorderRadius.circular(12)),
                 columnWidths: const {
                   0: FractionColumnWidth(0.7),
                   1: FractionColumnWidth(0.3),
@@ -258,26 +259,21 @@ class _WeightagePageState extends State<WeightagePage> {
                   const TableRow(children: [
                     Text('When',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold)),
+                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                     Text('Grade',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold)),
+                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                   ]),
                   TableRow(children: [
-                    WhenTextField('More than 80% of students score:',
-                        controller: ctrl[idx++]),
+                    WhenTextField('More than', markCtrl: ctrl[idx++], min: range[1], max: null),
                     const GradeDisplayText(value: '3'),
                   ]),
                   TableRow(children: [
-                    WhenTextField('Between 70% and 80% of students score:',
-                        controller: ctrl[idx++]),
+                    WhenTextField('Between', markCtrl: ctrl[idx++], min: range[0], max: range[1]),
                     const GradeDisplayText(value: '2'),
                   ]),
                   TableRow(children: [
-                    WhenTextField('Less than 70% of students score:',
-                        controller: ctrl[idx++]),
+                    WhenTextField('Less than', markCtrl: ctrl[idx++], min: range[0], max: null),
                     const GradeDisplayText(value: '1'),
                   ]),
                 ],

@@ -112,6 +112,17 @@ class CellMapping {
           Cell.weightage.labAssignmentActivity: ctrl[14].text,
           Cell.weightage.courseExitSurvey: ctrl[15].text,
         }
+      },
+      {
+        "sheet": "START",
+        "mappings": {
+          Cell.weightage.targetLHS1: ctrl[17].text,
+          Cell.weightage.targetLHS2: "${ctrl[16].text}-${ctrl[17].text}",
+          Cell.weightage.targetLHS3: ctrl[16].text,
+          Cell.weightage.targetRHS1: ctrl[18].text,
+          Cell.weightage.targetRHS2: ctrl[19].text,
+          Cell.weightage.targetRHS3: ctrl[20].text,
+        }
       }
     ];
   }

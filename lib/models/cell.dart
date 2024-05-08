@@ -20,7 +20,7 @@ class Components {
 }
 
 class Weightage {
-  String coTarget = 'K6';
+  String coTarget = 'M6';
   List<String> cos = ['B21', 'C21', 'D21', 'E21', 'F21', 'G21'];
 
   String direct = 'D6';
@@ -32,4 +32,11 @@ class Weightage {
   String expLearning = 'D12';
   String labAssignmentActivity = 'D13';
   String courseExitSurvey = 'D14';
+
+  String targetLHS1 = "H9";
+  String targetLHS2 = "H10";
+  String targetLHS3 = "H11";
+  String targetRHS1 = "I9";
+  String targetRHS2 = "I10";
+  String targetRHS3 = "I11";
 }
