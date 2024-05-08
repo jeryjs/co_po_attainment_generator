@@ -73,6 +73,14 @@ class _DetailsPageState extends State<DetailsPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    });
+  }
+
+  @override
   void deactivate() {
     CellMapping("StartPage").setComponentsMapping(components);
     _scrollController.dispose();

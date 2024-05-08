@@ -216,13 +216,9 @@ class _MainAppState extends State<MainApp> {
 							style: fluentUiBtn(context),
 							onPressed: index < pages.length - 1
 								? () {
-									if (currentPage().isFilled()) {
-										if (index == 2) {
-											setState(() => index = 0);
-										} else {
-											setState(() => ++index);
-										}
-									}
+                    if (currentPage().isFilled()) {
+                      setState(() => ++index);
+                    }
 									}
 								: null,
 							child: const Icon(Icons.arrow_forward_ios),

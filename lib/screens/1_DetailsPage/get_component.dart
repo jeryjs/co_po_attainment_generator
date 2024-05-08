@@ -24,7 +24,7 @@ class GetComponent extends StatefulWidget {
   State<GetComponent> createState() => _GetComponentState();
 }
 
-class _GetComponentState extends State<GetComponent> {
+class _GetComponentState extends State<GetComponent> with AutomaticKeepAliveClientMixin {
   get formKey => widget.formKey;
   List<TextEditingController> get ctrl => widget.controllers;
   get index => widget.index;
@@ -53,8 +53,7 @@ class _GetComponentState extends State<GetComponent> {
   Future<void> _saveControllers() async {
     final prefs = await SharedPreferences.getInstance();
     for (int i = 0; i < ctrl.length; i++) {
-      await prefs.setString(
-          'get_component_${index}_controller$i', ctrl[i].text);
+      await prefs.setString('get_component_${index}_controller$i', ctrl[i].text);
     }
   }
 
@@ -86,6 +85,7 @@ class _GetComponentState extends State<GetComponent> {
   /// The QPAnalyser is disabled for all components except IA.
   @override
   Widget build(BuildContext ctx) {
+    super.build(ctx);
     var isCT = ctrl[0].text != "IA";
     return FocusTraversalGroup(
       child: Card(
@@ -151,4 +151,7 @@ class _GetComponentState extends State<GetComponent> {
       ),
     );
   }
+  
+  @override
+  bool get wantKeepAlive => true;
 }
