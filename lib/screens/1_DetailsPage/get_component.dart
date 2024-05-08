@@ -95,6 +95,7 @@ class _GetComponentState extends State<GetComponent> with AutomaticKeepAliveClie
             width: 250,
             child: Form(
               key: formKey,
+              autovalidateMode: AutovalidateMode.always,
               child: ListView(
                 children: [
                   const SizedBox(height: 8),

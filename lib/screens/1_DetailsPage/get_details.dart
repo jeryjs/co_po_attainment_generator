@@ -75,6 +75,7 @@ class _GetDetailsState extends State<GetDetails> {
     return FocusTraversalGroup(
       child: Form(
         key: formKey,
+        autovalidateMode: AutovalidateMode.always,
         child: ListView(
           children: [
             Text('Basic Information:', style: heading),
