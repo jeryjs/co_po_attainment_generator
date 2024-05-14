@@ -177,6 +177,41 @@ class _MainAppState extends State<MainApp> {
                 const SizedBox(height: 16),
                 Card(
                   child: ListBody(
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.info_outline),
+                      title: const Text('About'),
+                      onTap: () => showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text("About"),
+                            content: const Text("This application has been developed by the team of faculty at JAIN (Deemed-to-be-University), Bengaluru.\nThis application is useful for the faculty to calculate (generate) a CO-PO Attainment for a course with given components.\nCalculation & Formulas are based on the instructions given by OBE."),
+                            actions: [ TextButton(child: const Text("Close"), onPressed: () => Navigator.of(context).pop()) ],
+                          );
+                        },
+                      )
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.warning_amber_rounded),
+                      title: const Text('Disclaimer'),
+                      onTap: () => showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text("Disclaimer"),
+                            content: const Text("The calculated CO-PO attainment is based on the input given by the user, not by the developer.\nThe attainment calculated by this app is only for academic purposes and cannot be used for any commercial or legal purpose.\nThe loss of any misguidance of this application cannot be claimed from the developer.\nIt is a guideline to calculate CO-PO attainment for a study course.\nIt may be verified by the OBE experts before making a final conclusion."),
+                            actions: [ TextButton(child: const Text("Close"), onPressed: () => Navigator.of(context).pop()) ],
+                          );
+                        },
+                      )
+                    ),
+                  ],
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Card(
+                  child: ListBody(
                     children: [
                       ListTile(
                         leading: const Icon(Icons.cloud_circle),
