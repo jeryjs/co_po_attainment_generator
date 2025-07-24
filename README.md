@@ -21,9 +21,9 @@ The purpose of CO-PO Attainment Generator is to streamline the calculation proce
 
 ## Preview
 
-<img src="https://i.imgur.com/0dAQfI2.png" width=45.9%>
-<img src="https://i.imgur.com/M4HUzq0.png" width=45.9%>
-<img src="https://i.imgur.com/0gzcXAo.png" width=45.9%>
+<img src="https://i.imgur.com/0dAQfI2.png" width=45.9%><img src="https://i.imgur.com/M4HUzq0.png" width=45.9%><img src="https://i.imgur.com/0gzcXAo.png" width=45.9%>
+<img width="45.9%" src="https://github.com/user-attachments/assets/316cc471-4e97-48a6-ba15-19cdde8a6669" /><img width="45.9%" src="https://github.com/user-attachments/assets/eeb0c159-2550-4cfd-b319-83e459f533f2" /><img width="45.9%" src="https://github.com/user-attachments/assets/52b2fcfb-3503-4110-bcce-e664945ea1e4" />
+
 
 ## Usage
 
